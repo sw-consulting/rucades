@@ -67,7 +67,6 @@ $srcs = [
   "rucades.cpp",
   "rucades_const.cpp",
   "rucades_tools.cpp",
-  "errormsg.cpp",
   "rucades_about.cpp",
   "rucades_algorithm.cpp",
   "rucades_attribute.cpp",
