@@ -6,9 +6,6 @@ name: Build-and-test
 
 on:
   push:
-    branches:
-      - main
-      - feature/mac-os-build
   pull_request:
   workflow_dispatch:
 
@@ -17,15 +14,14 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  build-linux:
     runs-on: ubuntu-latest
-    name: Ruby ${{ matrix.ruby }}
+    name: Linux Ruby ${{ matrix.ruby }}
     strategy:
       fail-fast: false
       matrix:
         ruby:
           - '2.7.8'
-          - '3.0.7'
           - '3.1.7'
           - '3.2.11'
           - '3.3.11'
@@ -52,6 +48,43 @@ jobs:
         pushd cades-linux-amd64
         sudo apt install ./cprocsp-pki-cades*.deb
         popd
+        popd
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby }}
+        bundler-cache: true
+
+    - name: Fix permissions
+      run: chmod a+x bin/*
+
+    - name: Build and test
+      run: bundle exec rake
+
+  build-macos:
+    runs-on: macos-latest
+    name: macOS Ruby ${{ matrix.ruby }}
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby:
+          - '3.1.7'
+          - '3.2.11'
+          - '3.3.11'
+          - '3.4.9'
+          - '4.0.5'
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install packages
+      run: brew install boost cmake
+
+    - name: Install CSP and SDK
+      run: |
+        pushd sdk
+        sudo installer -pkg macos-cprocsp.pkg -target /
         popd
 
     - name: Set up Ruby
