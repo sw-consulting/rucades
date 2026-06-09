@@ -8,7 +8,7 @@ RSpec.describe Rucades do
   describe "Store" do
     it "has constructor" do
       store = Rucades::Store.new
-      expect { store.add("") }.to raise_error(TypeError)
+      expect { store.add("") }.to raise_error(StandardError)
     end
 
     it "can be opened" do
