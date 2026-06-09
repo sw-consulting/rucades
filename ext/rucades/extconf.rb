@@ -8,22 +8,20 @@ require "mkmf-rice"
 require "fiddle"
 
 # rubocop:disable Style/GlobalVars
+LIBDIR = RUBY_PLATFORM =~ /darwin/ ? "/Applications/CryptoPro_ECP.app/Contents/Resources" : "/opt/cprocsp"
+BOOSTDIR = RUBY_PLATFORM =~ /darwin/ ? "/usr/local/include" : "/usr/include"
 
 INCDIRS = [
+  "#{BOOSTDIR}/boost",
   "/opt/cprocsp/include",
   "/opt/cprocsp/include/cpcsp",
   "/opt/cprocsp/include/pki/atl",
-  "/opt/cprocsp/include/pki"
-]
-if RUBY_PLATFORM =~ /darwin/
-  INCDIRS.push("/Applications/CryptoPro_ECP.app/Contents/Resources/include/pki")
-  INCDIRS.push("/Applications/CryptoPro_ECP.app/Contents/Resources/include/pki/cplib")
-  INCDIRS.push("/Applications/CryptoPro_ECP.app/Contents/Resources/include/pki/cppcades")
-else
-  INCDIRS.push("/usr/include/boost")
-  INCDIRS.push("/opt/cprocsp/include/pki/cplib")
-  INCDIRS.push("/opt/cprocsp/include/pki/cppcades")
-end
+  "#{LIBDIR}/include/pki/cppcades",
+  "#{LIBDIR}/include/pki/cplib",
+  "/opt/cprocsp/include/pki",
+  "#{LIBDIR}/include/pki",
+  "#{__dir__}/cplib",
+].freeze
 
 CXXDEFS = [
   " -DUNIX",
