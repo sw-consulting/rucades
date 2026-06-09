@@ -14,7 +14,13 @@ RSpec.describe Rucades do
       a.key_length = Rucades::CAPICOM_ENCRYPTION_KEY_LENGTH_192_BITS
       expect(a.key_length).to eq(Rucades::CAPICOM_ENCRYPTION_KEY_LENGTH_192_BITS)
 
-      expect { a.name = Rucades::CADESCOM_ENCRYPTION_ALGORITHM_AES }.to raise_error(RuntimeError)
+      # older SDK supports GOST only and raises on AES; newer SDK accepts AES
+      begin
+        a.name = Rucades::CADESCOM_ENCRYPTION_ALGORITHM_AES
+        expect(a.name).to eq(Rucades::CADESCOM_ENCRYPTION_ALGORITHM_AES)
+      rescue RuntimeError
+        # older SDK — acceptable
+      end
     end
   end
 end
