@@ -17,12 +17,25 @@
 #endif
 
 
-#include "boost/shared_ptr.hpp"
+#include <algorithm>  // must be included before CryptoPro headers to avoid __in/__out macro conflicts
+#include <functional> // must be included before CryptoPro headers to avoid __in/__out macro conflicts
 #include <iostream>
 #include <memory> //Этот хедер тут нужен что бы компилить с новыми версиями libstdc++
                   //в них есть конфликт с __in и __out макросами которые определены в MS хедерах.
 
-#include "cp_shared_ptr.h"
+// macOS CryptoPro SDK is compiled with std::shared_ptr; Linux SDK uses boost::shared_ptr
+#ifdef DARWIN
+#  ifndef NS_SHARED_PTR
+#    define NS_SHARED_PTR std
+#  endif
+#else
+#  include <boost/shared_ptr.hpp>
+#  include <boost/make_shared.hpp>
+#  ifndef NS_SHARED_PTR
+#    define NS_SHARED_PTR boost
+#  endif
+#endif
+
 
 #ifdef UNIX
 #include "CSP_WinDef.h"
