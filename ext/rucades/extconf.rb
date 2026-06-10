@@ -9,10 +9,15 @@ require "fiddle"
 
 # rubocop:disable Style/GlobalVars
 PLATFROM_DARWIN = RUBY_PLATFORM =~ /darwin/
+PLATFORM_DARWIN_ARM64 = RUBY_PLATFORM =~ /arm64-darwin/
 PLATFORM_LINUX_ARM64 = RUBY_PLATFORM =~ /aarch64-linux/
 
 LIBDIR = PLATFROM_DARWIN ? "/Applications/CryptoPro_ECP.app/Contents/Resources" : "/opt/cprocsp"
-BOOSTDIR = PLATFROM_DARWIN ? "/usr/local/include" : "/usr/include"
+BOOSTDIR = if PLATFROM_DARWIN
+             PLATFORM_DARWIN_ARM64 ? "/opt/homebrew/include" : "/usr/local/include"
+           else
+             "/usr/include"
+           end
 
 INCDIRS = [
   "#{BOOSTDIR}/boost",
