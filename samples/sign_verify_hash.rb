@@ -7,7 +7,7 @@ store.open(Rucades::CADESCOM_CONTAINER_STORE, Rucades::CAPICOM_MY_STORE,
            Rucades::CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED)
 certs = store.certificates
 
-raise "Certificates with private key not found" unless certs.count != 0
+raise "Certificates with private key not found" unless certs.any?
 
 signer = Rucades::Signer.new
 signer.certificate = certs[1]

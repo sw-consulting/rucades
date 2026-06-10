@@ -18,6 +18,7 @@
 #ifdef UNIX
 #   include "CSP_WinCrypt.h"
 #   include "CSP_WinError.h"
+#   include <cstdint>
 #   include <string>
 #   include "ocspcli_e.h"
 #   include "tspcli_e.h"

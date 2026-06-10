@@ -11,7 +11,7 @@ Gem реализует интерфейс, аналогичный [CAdESCOM](htt
 
 Gem тестировался в следующем окружении:
 * Ububtu 20, 22
-* Ruby 2.7. 3.0, 3.1, 3.2
+* Ruby 2.7.8, 3.1.7, 3.2.11, 3.3.11, 3.4.9, 4.0.5
 
 Вероятно, Gem совместим с другими вариантами Linux, однако КриптоПро ЭЦП SDK доступно только для Ubuntu.
 
@@ -64,9 +64,6 @@ _для arm64_
 ```
 gem 'rucades', git: 'https://github.com/maxirmx/rucades'
 ```
-Замечание. Репозиторий 'https://github.com/maxirmx/rucades' - приватный. Чтобы bundler имел к нему доступ,
-должен быть настроен [OAuth токен](https://docs.github.com/ru/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
-и конфигурацию: ```bundle config GITHUB__COM myoauthtoken:x-oauth-basic```
 
 * Выполните
 ```

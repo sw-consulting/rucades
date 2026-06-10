@@ -27,6 +27,11 @@ long pre_rb_Certificates::get_count(void)
   return count;
 }
 
+bool pre_rb_Certificates::has_any(void)
+{
+  return get_count() > 0;
+}
+
 pre_rb_Certificate pre_rb_Certificates::get_item(long index)
 {
   boost::shared_ptr<CPPCadesCPCertificateObject> pCppCadesCertificate =
@@ -127,6 +132,7 @@ void pre_rb_Certificates::define_ruby_class(VALUE module)
     define_class_under<pre_rb_Certificates>(module, "Certificates")
     .define_constructor(Constructor<pre_rb_Certificates>())
     .define_method("count", &pre_rb_Certificates::get_count)
+    .define_method("any?", &pre_rb_Certificates::has_any)
     .define_method("[]", &pre_rb_Certificates::get_item)
     .define_method("internal_find_query_long", &pre_rb_Certificates::internal_find_query_long)
     .define_method("internal_find_query_string", &pre_rb_Certificates::internal_find_query_string);

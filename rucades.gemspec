@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
   spec.description = "Ruby CaDes bindings"
   spec.homepage = "https://github.com/maxirmx/rucades"
   spec.license = "MIT"
-  spec.required_ruby_version = ">= 2.7.0"
+  spec.required_ruby_version = ">= 2.7.8"
 
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = "https://github.com/maxirmx/rucades"
@@ -33,6 +33,6 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
   spec.extensions = ["ext/rucades/extconf.rb"]
 
-  spec.add_dependency "rice", "~> 4.1"
   spec.add_dependency "fiddle", "~> 1"
+  spec.add_dependency "rice", "~> 4.1"
 end

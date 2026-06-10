@@ -17,6 +17,7 @@ class pre_rb_Certificates {
     pre_rb_Certificates(void);
     pre_rb_Certificates(boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPCertificatesObject> pCppCadesCertificates);
     long get_count(void);
+    bool has_any(void);
     pre_rb_Certificate get_item(long index);
 
     pre_rb_Certificates internal_find_query_long(long type, long query, bool valid_only);
