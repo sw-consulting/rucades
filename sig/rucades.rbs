@@ -278,7 +278,17 @@ module Rucades
     def count: () -> Integer
 
     # Возвращает атрибут с заданным индексом.
-    def item: (Integer index) -> Attribute
+    def []: (Integer index) -> Attribute
+
+    # Добавляет атрибут в коллекцию.
+    def add: (Attribute attribute) -> void
+    def <<: (Attribute attribute) -> void
+
+    # Удаляет атрибут из коллекции.
+    def remove: (Integer index) -> void
+
+    # Очищает коллекцию.
+    def clear: () -> void
   end
 
   # CAdESCOM.CRL
@@ -310,16 +320,19 @@ module Rucades
 
   class BasicConstraints
     # Является ли сертификат центром сертификации.
-    def is_certificate_authority: () -> bool
+    def certificate_authority?: () -> bool
 
-    # Присутствует ли расширение в сертификате.
-    def is_present: () -> bool
+    # Является ли расширение критическим.
+    def critical?: () -> bool
 
     # Присутствует ли ограничение длины пути.
-    def is_path_length_constraint_present: () -> bool
+    def pathlen_constraint_present?: () -> bool
+
+    # Присутствует ли расширение в сертификате.
+    def present?: () -> bool
 
     # Максимальная длина цепочки сертификатов.
-    def path_length_constraint: () -> Integer
+    def path_len_constraint: () -> Integer
   end
 
   class EKU
@@ -337,7 +350,7 @@ module Rucades
     def count: () -> Integer
 
     # Возвращает запись с заданным индексом.
-    def item: (Integer index) -> EKU
+    def []: (Integer index) -> EKU
   end
 
   class KeyUsage
@@ -347,8 +360,14 @@ module Rucades
     # Установлен ли бит dataEncipherment.
     def data_encipherment_enabled?: () -> bool
 
+    # Установлен ли бит decipherOnly.
+    def decipher_only_enabled?: () -> bool
+
     # Установлен ли бит digitalSignature.
     def digital_signature_enabled?: () -> bool
+
+    # Установлен ли бит encipherOnly.
+    def encipher_only_enabled?: () -> bool
 
     # Установлен ли бит keyAgreement.
     def key_agreement_enabled?: () -> bool
@@ -359,22 +378,25 @@ module Rucades
     # Установлен ли бит keyEncipherment.
     def key_encipherment_enabled?: () -> bool
 
+    # Установлен ли бит nonRepudiation.
+    def non_repudiation_enabled?: () -> bool
+
     # Присутствует ли расширение в сертификате.
     def present?: () -> bool
 
-    # Является ли расширение критическим
+    # Является ли расширение критическим.
     def critical?: () -> bool
   end
 
   class ExtendedKeyUsage
-    # Количество записей в коллекции.
-    def count: () -> Integer
-
     # Коллекция расширенных использований ключа.
     def ekus: () -> EKUs
 
     # Присутствует ли расширение в сертификате.
-    def is_present: () -> bool
+    def present?: () -> bool
+
+    # Является ли расширение критическим.
+    def critical?: () -> bool
   end
 
   # CAdESCOM.PublicKey
@@ -396,22 +418,24 @@ module Rucades
   class PrivateKey
     # Имя контейнера закрытого ключа.
     def container_name: () -> String
-    def container_name=: (String) -> String
 
     # Тип ключа (AT_KEYEXCHANGE или AT_SIGNATURE).
     def key_spec: () -> Integer
-    def key_spec=: (Integer) -> Integer
 
     # Имя криптопровайдера.
     def provider_name: () -> String
-    def provider_name=: (String) -> String
 
     # Тип криптопровайдера.
     def provider_type: () -> Integer
-    def provider_type=: (Integer) -> Integer
 
     # Уникальное имя контейнера.
     def unique_container_name: () -> String
+
+    # Устанавливает PIN-код кэша.
+    def cache_pin=: (String) -> String
+
+    # Устанавливает PIN-код контейнера закрытого ключа.
+    def key_pin=: (String) -> String
 
     # Изменяет PIN-код контейнера.
     def change_pin: () -> void
@@ -468,12 +492,6 @@ module Rucades
     # Возвращает объект ExtendedKeyUsage для данного сертификата.
     def extended_key_usage: () -> ExtendedKeyUsage
 
-    # Производит поиск закрытого ключа, соответствующего данному сертификату.
-    def find_private_key: () -> void
-
-    # Возвращает информацию из сертификата (CAPICOM_CERT_INFO_TYPE).
-    def get_info: (Integer info_type) -> String
-
     # Имеется ли закрытый ключ для сертификата.
     def has_private_key?: () -> bool
 
@@ -488,17 +506,21 @@ module Rucades
 
     # Возвращает объект PublicKey для данного сертификата.
     def public_key: () -> PublicKey
+
+    # NOT IMPLEMENTED in C++:
+    # def find_private_key: () -> void
+    # def get_info: (Integer info_type) -> String
   end
 
   # CAdESCOM.Certificates
   # Описывает коллекцию сертификатов.
-  # Реализованы только методы find, item, count.
+  # Реализованы методы find, [], count.
   class Certificates
     # Возвращает количество объектов в коллекции сертификатов.
     def count: () -> Integer
 
     # Возвращает сертификат с заданным индексом из коллекции.
-    def item: (Integer index) -> Certificate
+    def []: (Integer index) -> Certificate
 
     # Возвращает коллекцию сертификатов, удовлетворяющих заданному критерию.
     # find_type — CAPICOM_CERTIFICATE_FIND_TYPE
@@ -509,17 +531,13 @@ module Rucades
 
   # CAdESCOM.CertificateStatus
   # Описывает статус сертификата открытого ключа.
-  # Реализованы только validation_certificates, error_status, result.
   class CertificateStatus
-    # Возвращает коллекцию сертификатов из цепочки.
-    def validation_certificates: () -> untyped
-
-    # Значение поля dwErrorStatus структуры CERT_TRUST_STATUS для каждого сертификата цепочки.
-    def error_status: () -> untyped
-
     # Является ли сертификат валидным.
-    def result: () -> bool
-    def result=: (bool) -> bool
+    def result?: () -> bool
+
+    # NOT IMPLEMENTED in C++:
+    # def validation_certificates: () -> untyped
+    # def error_status: () -> untyped
   end
 
   class Algorithm
@@ -534,20 +552,22 @@ module Rucades
     def key_length=: (Integer) -> Integer
   end
 
+  # Описывает статус подписи.
   class SignatureStatus
-    def validity_period_validity: () -> Integer
-    def issuer_validity: () -> Integer
-    def revocation_validity: () -> Integer
-    def chain_build_validity: () -> Integer
-    def chain_validity: () -> Integer
-    def certificate_validity: () -> Integer
-    def reference_validity: () -> Integer
-    def signature_validity: () -> Integer
-    def codesigning_validity: () -> Integer
-    def timestamp_validity: () -> Integer
-
     # Является ли подпись валидной.
-    def result: () -> bool
+    def valid?: () -> bool
+
+    # NOT IMPLEMENTED in C++:
+    # def validity_period_validity: () -> Integer
+    # def issuer_validity: () -> Integer
+    # def revocation_validity: () -> Integer
+    # def chain_build_validity: () -> Integer
+    # def chain_validity: () -> Integer
+    # def certificate_validity: () -> Integer
+    # def reference_validity: () -> Integer
+    # def signature_validity: () -> Integer
+    # def codesigning_validity: () -> Integer
+    # def timestamp_validity: () -> Integer
   end
 
   class Signer
@@ -555,6 +575,7 @@ module Rucades
 
     # Подписанные атрибуты подписанта.
     def authenticated_attributes: () -> Attributes
+    def authenticated_attributes=: (Attributes) -> Attributes
 
     # Сертификат подписанта.
     def certificate: () -> Certificate
@@ -567,8 +588,7 @@ module Rucades
     # Списки отозванных сертификатов.
     def crls: () -> untyped
 
-    # PIN-код контейнера закрытого ключа.
-    def key_pin: () -> String
+    # Устанавливает PIN-код контейнера закрытого ключа.
     def key_pin=: (String) -> String
 
     # OCSP-ответы.
@@ -577,9 +597,6 @@ module Rucades
     # Параметры подписи.
     def options: () -> Integer
     def options=: (Integer) -> Integer
-
-    # Статус подписи.
-    def signature_status: () -> SignatureStatus
 
     # Время метки подписи.
     def signature_time_stamp_time: () -> String
@@ -593,6 +610,11 @@ module Rucades
 
     # Неподписанные атрибуты подписанта.
     def unauthenticated_attributes: () -> Attributes
+    def unauthenticated_attributes=: (Attributes) -> Attributes
+
+    # NOT IMPLEMENTED in C++:
+    # def key_pin: () -> String
+    # def signature_status: () -> SignatureStatus
   end
 
   class Signers
@@ -600,7 +622,7 @@ module Rucades
     def count: () -> Integer
 
     # Возвращает подписанта с заданным индексом.
-    def item: (Integer index) -> Signer
+    def []: (Integer index) -> Signer
   end
 
   class SignedData
@@ -624,9 +646,9 @@ module Rucades
     def additional_store: (Store store) -> void
 
     # Добавить подпись (соподписание) в существующее сообщение.
-    def co_sign: (?Signer signer, ?Integer cades_type) -> String
-    def co_sign_cades: (?Signer signer, ?Integer cades_type, ?bool detached) -> String
-    def co_sign_hash: (HashedData hashed_data, ?Signer signer, ?Integer cades_type) -> String
+    def cosign: (?Signer signer, ?Integer cades_type) -> String
+    def cosign_cades: (?Signer signer, ?Integer cades_type, ?bool detached) -> String
+    def cosign_hash: (HashedData hashed_data, ?Signer signer, ?Integer cades_type) -> String
 
     # Улучшить подпись CAdES-BES до CAdES-T или CAdES-X Long Type 1.
     def enhance_cades: (String signed_message, String tsa_address, ?Integer cades_type) -> String
@@ -649,16 +671,13 @@ module Rucades
     def content: () -> String
     def content=: (String) -> String
 
-    # Метод хэширования.
-    def digest_method: () -> String
+    # Метод хэширования (только запись).
     def digest_method=: (String) -> String
 
-    # Метод подписи.
-    def signature_method: () -> String
+    # Метод подписи (только запись).
     def signature_method=: (String) -> String
 
-    # Тип XML-подписи (CADESCOM_XML_SIGNATURE_TYPE).
-    def signature_type: () -> Integer
+    # Тип XML-подписи (только запись, CADESCOM_XML_SIGNATURE_TYPE).
     def signature_type=: (Integer) -> Integer
 
     # Подписанты.
@@ -669,6 +688,11 @@ module Rucades
 
     # Проверить XML-подпись.
     def verify: (String signed_xml) -> void
+
+    # NOT IMPLEMENTED in C++ (write-only properties):
+    # def digest_method: () -> String
+    # def signature_method: () -> String
+    # def signature_type: () -> Integer
   end
 
   class HashedData
@@ -693,7 +717,7 @@ module Rucades
     def hash: (String data) -> void
 
     # Установить значение хэша напрямую.
-    def set_hash_value: (String hash_value) -> void
+    def hash_value=: (String hash_value) -> void
   end
 
   class RawSignature
@@ -721,7 +745,7 @@ module Rucades
     def content_encoding=: (Integer) -> Integer
 
     # Получатели зашифрованного сообщения.
-    def recipients: () -> Certificates
+    def recipients: () -> Recipients
 
     # Расшифровать сообщение.
     def decrypt: (String encoded_message) -> void
@@ -731,6 +755,31 @@ module Rucades
 
     def stream_decrypt: (String encoded_message) -> void
     def stream_encrypt: (?Integer encoding_type) -> String
+  end
+
+  # Коллекция получателей зашифрованного сообщения.
+  class Recipients
+    # Возвращает количество получателей.
+    def count: () -> Integer
+
+    # Возвращает получателя с заданным индексом.
+    def []: (Integer index) -> Certificate
+
+    # Добавляет сертификат получателя.
+    def add: (Certificate certificate) -> void
+    def <<: (Certificate certificate) -> void
+
+    # Удаляет получателя из коллекции.
+    def remove: (Integer index) -> void
+
+    # Очищает коллекцию.
+    def clear: () -> void
+  end
+
+  # Коллекция бинарных блобов.
+  class Blobs
+    def count: () -> Integer
+    def []: (Integer index) -> untyped
   end
 
   # CAdESCOM.Store
@@ -774,9 +823,6 @@ module Rucades
     def iv: () -> String
     def iv=: (String) -> String
 
-    def legacy_plugin_symmetric_export: () -> bool
-    def legacy_plugin_symmetric_export=: (bool) -> bool
-
     # Расшифровать данные.
     def decrypt: (String encoded_message, ?bool final) -> String
 
@@ -795,11 +841,11 @@ module Rucades
     # Импортировать ключ.
     def import_key: (String encoded_key, ?String password) -> void
 
-    # Установить режим шифрования (CRYPT_MODE_*).
-    def set_mode: (Integer mode) -> void
-
-    # Установить тип дополнения (padding).
-    def set_padding: (Integer padding) -> void
+    # NOT IMPLEMENTED in C++:
+    # def legacy_plugin_symmetric_export: () -> bool
+    # def legacy_plugin_symmetric_export=: (bool) -> bool
+    # def set_mode: (Integer mode) -> void
+    # def set_padding: (Integer padding) -> void
   end
 
   # Возвращает версию модуля rucades.

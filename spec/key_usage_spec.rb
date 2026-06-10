@@ -10,7 +10,7 @@ RSpec.describe Rucades do
       kusage = Rucades::KeyUsage.new
       expect(kusage.present?).to be(false)
       expect(kusage.critical?).to be(false)
-      expect(kusage.digital_ignature_enabled?).to be(false)
+      expect(kusage.digital_signature_enabled?).to be(false)
       expect(kusage.non_repudiation_enabled?).to be(false)
       expect(kusage.key_encipherment_enabled?).to be(false)
       expect(kusage.key_agreement_enabled?).to be(false)

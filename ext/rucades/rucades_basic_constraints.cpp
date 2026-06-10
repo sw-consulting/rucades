@@ -58,7 +58,7 @@ void pre_rb_BasicConstraints::define_ruby_class(VALUE module)
     Data_Type<pre_rb_BasicConstraints> rb_cBasicConstraints =
         define_class_under<pre_rb_BasicConstraints>(module, "BasicConstraints")
         .define_constructor(Constructor<pre_rb_BasicConstraints>())
-        .define_method("ceritficate_authority?", &pre_rb_BasicConstraints::is_ceritficate_authority)
+        .define_method("certificate_authority?", &pre_rb_BasicConstraints::is_ceritficate_authority)
         .define_method("critical?", &pre_rb_BasicConstraints::is_critical)
         .define_method("pathlen_constraint_present?", &pre_rb_BasicConstraints::is_path_len_constraint_present)
         .define_method("present?", &pre_rb_BasicConstraints::is_present)
