@@ -42,11 +42,11 @@ $defs << " -DSIZEOF_VOID_P=#{Fiddle::SIZEOF_VOIDP}"
 CXXDEFS.each { |df| $defs << df }
 ARM64_CXXDEFS.each { |df| $defs << df } if RUBY_PLATFORM =~ /aarch64-linux/
 
-if RUBY_PLATFORM =~ /aarch64-linux/ 
-  $DLDFLAGS << " -L/opt/cprocsp/lib/aarch64"  
-else
-  $DLDFLAGS << " -L/opt/cprocsp/lib/amd64"
-end
+$DLDFLAGS << if RUBY_PLATFORM =~ /aarch64-linux/
+               " -L/opt/cprocsp/lib/aarch64"
+             else
+               " -L/opt/cprocsp/lib/amd64"
+             end
 
 $LOCAL_LIBS << " -lcppcades"
 
