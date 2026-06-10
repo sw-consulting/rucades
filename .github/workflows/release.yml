@@ -5,7 +5,7 @@
 name: Release
 
 on:
-  pull_request:
+  pull_request_target:
     types:
       - closed
     branches:
@@ -25,7 +25,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: '${{ github.workflow }}-${{ github.ref_name }}'
+  group: '${{ github.workflow }}-${{ github.event.pull_request.base.ref || github.ref_name }}'
   cancel-in-progress: false
 
 jobs:
@@ -33,8 +33,12 @@ jobs:
     if: >-
       github.event_name == 'workflow_dispatch' ||
       (github.event.pull_request.merged == true &&
-       (contains(join(github.event.pull_request.labels.*.name, ','), 'semantic:') ||
-       contains(join(github.event.pull_request.labels.*.name, ','), 'semver:')))
+       (contains(github.event.pull_request.labels.*.name, 'semantic:major') ||
+       contains(github.event.pull_request.labels.*.name, 'semantic:minor') ||
+       contains(github.event.pull_request.labels.*.name, 'semantic:patch') ||
+       contains(github.event.pull_request.labels.*.name, 'semver:major') ||
+       contains(github.event.pull_request.labels.*.name, 'semver:minor') ||
+       contains(github.event.pull_request.labels.*.name, 'semver:patch')))
     runs-on: ubuntu-latest
 
     steps:
@@ -67,7 +71,7 @@ jobs:
           fi
 
           if [ -z "${bump}" ]; then
-            echo "No semantic version label found. Add one of: semantic:major, semantic:minor, semantic:patch." >&2
+            echo "No semantic version label found. Add one of: semantic:major, semantic:minor, semantic:patch, semver:major, semver:minor, semver:patch." >&2
             exit 1
           fi
 
@@ -120,8 +124,6 @@ jobs:
           git add lib/rucades/version.rb
           git commit -m "Release v${VERSION}"
           git tag "v${VERSION}"
-          git push origin main
-          git push origin "v${VERSION}"
 
       - name: Build gem package without SDK
         run: |
@@ -148,3 +150,11 @@ jobs:
           printf ':sw-consulting: %s\n' "${RUBYGEMS_PUSH_TOKEN}" > ~/.gem/credentials
           chmod 0600 ~/.gem/credentials
           gem push --key sw-consulting pkg/rucades-*.gem
+
+      - name: Push release commit and tag
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          set -euo pipefail
+          git push origin main
+          git push origin "v${VERSION}"
