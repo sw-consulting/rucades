@@ -6,6 +6,8 @@ name: Build-and-test
 
 on:
   push:
+    branches:
+      - main
   pull_request:
   workflow_dispatch:
 
@@ -29,7 +31,7 @@ jobs:
           - '4.0.5'
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v6
 
     - name: Install packages
       run: |
@@ -78,7 +80,7 @@ jobs:
           - '4.0.5'
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v6
 
     - name: Install packages
       run: brew install boost cmake
