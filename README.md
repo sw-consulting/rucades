@@ -5,6 +5,7 @@
 Gem реализует интерфейс, аналогичный [CAdESCOM](https://docs.cryptopro.ru/cades/reference/cadescom)
 и разработан путём повторения функциональности [pycades](https://docs.cryptopro.ru/cades/pycades)
 
+[![Gem Version](https://badge.fury.io/rb/rucades.svg)](https://badge.fury.io/rb/rucades)
 [![Build-and-test](https://github.com/maxirmx/rucades/actions/workflows/main.yml/badge.svg)](https://github.com/maxirmx/rucades/actions/workflows/main.yml)
 
 ## Совместимость
