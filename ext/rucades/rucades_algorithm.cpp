@@ -13,9 +13,9 @@ using namespace CryptoPro::PKI::CAdES;
 
 namespace rucades {
 pre_rb_Algorithm::pre_rb_Algorithm(void):
-      m_pCppCadesImpl(boost::shared_ptr<CPPCadesCPAlgorithmObject>(new CPPCadesCPAlgorithmObject())) { }
+      m_pCppCadesImpl(NS_SHARED_PTR::shared_ptr<CPPCadesCPAlgorithmObject>(new CPPCadesCPAlgorithmObject())) { }
 
-pre_rb_Algorithm::pre_rb_Algorithm(boost::shared_ptr<CPPCadesCPAlgorithmObject> other):
+pre_rb_Algorithm::pre_rb_Algorithm(NS_SHARED_PTR::shared_ptr<CPPCadesCPAlgorithmObject> other):
       m_pCppCadesImpl(other) { }
 
 long pre_rb_Algorithm::get_name(void)

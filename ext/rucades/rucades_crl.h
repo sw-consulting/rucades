@@ -11,7 +11,7 @@ namespace rucades {
 
 class pre_rb_CRL {
   protected:
-    boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPCRLObject> m_pCppCadesImpl;
+    NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPCRLObject> m_pCppCadesImpl;
   public:
     pre_rb_CRL(void);
     std::string get_auth_key_id(void);

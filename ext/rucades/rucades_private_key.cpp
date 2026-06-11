@@ -13,9 +13,9 @@ using namespace CryptoPro::PKI::CAdES;
 
 namespace rucades {
 pre_rb_PrivateKey::pre_rb_PrivateKey(void):
-          m_pCppCadesImpl(boost::shared_ptr<CPPCadesCPPrivateKeyObject>(new CPPCadesCPPrivateKeyObject())) { }
+          m_pCppCadesImpl(NS_SHARED_PTR::shared_ptr<CPPCadesCPPrivateKeyObject>(new CPPCadesCPPrivateKeyObject())) { }
 
-pre_rb_PrivateKey::pre_rb_PrivateKey(boost::shared_ptr<CPPCadesCPPrivateKeyObject> other):
+pre_rb_PrivateKey::pre_rb_PrivateKey(NS_SHARED_PTR::shared_ptr<CPPCadesCPPrivateKeyObject> other):
       m_pCppCadesImpl(other) { }
 
 std::string pre_rb_PrivateKey::get_container_name(void)
@@ -77,7 +77,7 @@ void pre_rb_PrivateKey::define_ruby_class(VALUE module)
     .define_method("container_name", &pre_rb_PrivateKey::get_container_name)
     .define_method("unique_container_name", &pre_rb_PrivateKey::get_unique_container_name)
     .define_method("provider_name", &pre_rb_PrivateKey::get_provider_name)
-    .define_method("provier_type", &pre_rb_PrivateKey::get_provider_type)
+    .define_method("provider_type", &pre_rb_PrivateKey::get_provider_type)
     .define_method("key_spec", &pre_rb_PrivateKey::get_key_spec)
     .define_method("cache_pin=", &pre_rb_PrivateKey::set_cache_pin)
     .define_method("key_pin=", &pre_rb_PrivateKey::set_key_pin)

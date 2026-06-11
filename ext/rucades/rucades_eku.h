@@ -10,10 +10,10 @@
 namespace rucades {
 class pre_rb_EKU {
   protected:
-    boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPEKUObject> m_pCppCadesImpl;
+    NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPEKUObject> m_pCppCadesImpl;
   public:
     pre_rb_EKU(void);
-    pre_rb_EKU(boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPEKUObject> pCppCadesEKU);
+    pre_rb_EKU(NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPEKUObject> pCppCadesEKU);
     long get_name(void);
     void set_name (long name);
     std::string get_oid(void);

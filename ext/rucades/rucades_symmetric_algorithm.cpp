@@ -14,9 +14,9 @@ using namespace CryptoPro::PKI::CAdES;
 
 namespace rucades {
 pre_rb_SymmetricAlgorithm::pre_rb_SymmetricAlgorithm(void):
-      m_pCppCadesImpl(boost::shared_ptr<CPPCadesSymmetricAlgorithmObject>(new CPPCadesSymmetricAlgorithmObject())) { }
+      m_pCppCadesImpl(NS_SHARED_PTR::shared_ptr<CPPCadesSymmetricAlgorithmObject>(new CPPCadesSymmetricAlgorithmObject())) { }
 
-pre_rb_SymmetricAlgorithm::pre_rb_SymmetricAlgorithm(boost::shared_ptr<CPPCadesSymmetricAlgorithmObject> other):
+pre_rb_SymmetricAlgorithm::pre_rb_SymmetricAlgorithm(NS_SHARED_PTR::shared_ptr<CPPCadesSymmetricAlgorithmObject> other):
       m_pCppCadesImpl(other) { }
 
 std::string pre_rb_SymmetricAlgorithm::get_divers_data(void)
@@ -59,7 +59,7 @@ std::string pre_rb_SymmetricAlgorithm::decrypt(std::string data, bool final)
 
 pre_rb_SymmetricAlgorithm pre_rb_SymmetricAlgorithm::diversify_key(void)
 {
-    boost::shared_ptr<CPPCadesSymmetricAlgorithmObject> pCPPCadesSymAlg;
+    NS_SHARED_PTR::shared_ptr<CPPCadesSymmetricAlgorithmObject> pCPPCadesSymAlg;
     hr_method_check(m_pCppCadesImpl->DiversifyKey(pCPPCadesSymAlg));
     return pre_rb_SymmetricAlgorithm(pCPPCadesSymAlg);
 }

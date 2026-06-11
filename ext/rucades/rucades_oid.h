@@ -11,10 +11,10 @@ namespace rucades {
 
 class pre_rb_OID {
   protected:
-    boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPOIDObject> m_pCppCadesImpl;
+    NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPOIDObject> m_pCppCadesImpl;
   public:
     pre_rb_OID(void);
-    pre_rb_OID(boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPOIDObject> other);
+    pre_rb_OID(NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPOIDObject> other);
     std::string get_value(void);
     void set_value(std::string& value);
     long get_name(void);

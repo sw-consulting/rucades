@@ -16,9 +16,9 @@ using namespace CryptoPro::PKI::CAdES;
 
 namespace rucades {
 pre_rb_Certificate::pre_rb_Certificate(void):
-      m_pCppCadesImpl(boost::shared_ptr<CPPCadesCPCertificateObject>(new CPPCadesCPCertificateObject())) { }
+      m_pCppCadesImpl(NS_SHARED_PTR::shared_ptr<CPPCadesCPCertificateObject>(new CPPCadesCPCertificateObject())) { }
 
-pre_rb_Certificate::pre_rb_Certificate(boost::shared_ptr<CPPCadesCPCertificateObject> other):
+pre_rb_Certificate::pre_rb_Certificate(NS_SHARED_PTR::shared_ptr<CPPCadesCPCertificateObject> other):
       m_pCppCadesImpl(other) { }
 
 std::string pre_rb_Certificate::get_subject_name(void)
@@ -170,7 +170,7 @@ void pre_rb_Certificate::define_ruby_class(VALUE module)
         .define_method("key_usage", &pre_rb_Certificate::get_key_usage)
         .define_method("extended_key_usage", &pre_rb_Certificate::get_extended_key_usage)
         .define_method("basic_constraints", &pre_rb_Certificate::get_basic_constraints)
-        .define_method("cerificate_status", &pre_rb_Certificate::get_certificate_status)
+        .define_method("certificate_status", &pre_rb_Certificate::get_certificate_status)
         .define_method("import", &pre_rb_Certificate::crt_import)
         .define_method("export", &pre_rb_Certificate::crt_export)
         .define_method("has_private_key?", &pre_rb_Certificate::has_private_key);

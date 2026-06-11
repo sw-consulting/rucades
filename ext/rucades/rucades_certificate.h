@@ -19,10 +19,10 @@ class pre_rb_Store;
 
 class pre_rb_Certificate {
   protected:
-    boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPCertificateObject> m_pCppCadesImpl;
+    NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPCertificateObject> m_pCppCadesImpl;
   public:
     pre_rb_Certificate(void);
-    pre_rb_Certificate(boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPCertificateObject> other);
+    pre_rb_Certificate(NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPCertificateObject> other);
 
     std::string get_subject_name(void);
     std::string get_issuer_name(void);

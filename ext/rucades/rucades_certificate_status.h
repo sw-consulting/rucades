@@ -10,10 +10,10 @@
 namespace rucades {
 class pre_rb_CertificateStatus {
   protected:
-    boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPCertificateStatusObject> m_pCppCadesImpl;
+    NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPCertificateStatusObject> m_pCppCadesImpl;
   public:
     pre_rb_CertificateStatus(void);
-    pre_rb_CertificateStatus(boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPCertificateStatusObject> other);
+    pre_rb_CertificateStatus(NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPCertificateStatusObject> other);
     bool result(void);
 
     static void define_ruby_class(VALUE module);

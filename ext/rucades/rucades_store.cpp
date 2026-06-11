@@ -13,7 +13,7 @@ using namespace CryptoPro::PKI::CAdES;
 
 namespace rucades {
 pre_rb_Store::pre_rb_Store(void):
-      m_pCppCadesImpl(boost::shared_ptr<CPPCadesCPStoreObject>(new CPPCadesCPStoreObject())) { }
+      m_pCppCadesImpl(NS_SHARED_PTR::shared_ptr<CPPCadesCPStoreObject>(new CPPCadesCPStoreObject())) { }
 
 std::string pre_rb_Store::get_name(void)
 {
@@ -24,7 +24,7 @@ std::string pre_rb_Store::get_name(void)
 
 pre_rb_Certificates pre_rb_Store::get_certificates(void)
 {
-    boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPCertificatesObject> pCertificates;
+    NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPCertificatesObject> pCertificates;
     hr_method_check(m_pCppCadesImpl->get_Certificates(pCertificates));
     return pre_rb_Certificates(pCertificates);
 }

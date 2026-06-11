@@ -8,7 +8,7 @@ RSpec.describe Rucades do
   describe "BasicConstraints" do
     it "has constructor and getters" do
       constr = Rucades::BasicConstraints.new
-      expect(constr.ceritficate_authority?).to be(false)
+      expect(constr.certificate_authority?).to be(false)
       expect(constr.critical?).to be(false)
       expect(constr.pathlen_constraint_present?).to be(false)
       expect(constr.present?).to be(false)

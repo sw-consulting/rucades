@@ -13,10 +13,10 @@
 namespace rucades {
 class pre_rb_EKUs {
   protected:
-    boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPEKUsObject> m_pCppCadesImpl;
+    NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPEKUsObject> m_pCppCadesImpl;
   public:
     pre_rb_EKUs(void);
-    pre_rb_EKUs(boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPEKUsObject> pCppCadesEKUs);
+    pre_rb_EKUs(NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPEKUsObject> pCppCadesEKUs);
     long get_count(void);
     pre_rb_EKU get_item(long index);
 

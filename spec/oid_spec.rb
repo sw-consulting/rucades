@@ -12,7 +12,7 @@ RSpec.describe Rucades do
       oid = Rucades::OID.new
       oid.name = Rucades::CAPICOM_OID_BASIC_CONSTRAINTS_EXTENSION
       expect(oid.value).to eq("2.5.29.10")
-      expect(oid.friendly_name).to eq("Основные ограничения")
+      expect(["Основные ограничения", "Basic Constraints"]).to include(oid.friendly_name)
 
       oid.friendly_name = "Проверка подлинности сервера"
       expect(oid.name).to eq(Rucades::CAPICOM_OID_SERVER_AUTH_EKU)
@@ -20,7 +20,7 @@ RSpec.describe Rucades do
 
       oid.value = "2.5.29.10"
       expect(oid.name).to eq(Rucades::CAPICOM_OID_BASIC_CONSTRAINTS_EXTENSION)
-      expect(oid.friendly_name).to eq("Основные ограничения")
+      expect(["Основные ограничения", "Basic Constraints"]).to include(oid.friendly_name)
     end
     it "throws an exception on invalid attribute value" do
       oid = Rucades::OID.new

@@ -10,10 +10,10 @@
 namespace rucades {
 class pre_rb_KeyUsage {
   protected:
-    boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPKeyUsageObject> m_pCppCadesImpl;
+    NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPKeyUsageObject> m_pCppCadesImpl;
   public:
     pre_rb_KeyUsage(void);
-    pre_rb_KeyUsage(boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPKeyUsageObject> other);
+    pre_rb_KeyUsage(NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPKeyUsageObject> other);
     bool is_present(void);
     bool is_critical(void);
     bool is_digital_signature_enabled(void);

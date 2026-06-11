@@ -13,9 +13,9 @@ using namespace CryptoPro::PKI::CAdES;
 
 namespace rucades {
 pre_rb_EKUs::pre_rb_EKUs(void):
-      m_pCppCadesImpl(boost::shared_ptr<CPPCadesCPEKUsObject>(new CPPCadesCPEKUsObject())) { }
+      m_pCppCadesImpl(NS_SHARED_PTR::shared_ptr<CPPCadesCPEKUsObject>(new CPPCadesCPEKUsObject())) { }
 
-pre_rb_EKUs::pre_rb_EKUs(boost::shared_ptr<CPPCadesCPEKUsObject> other):
+pre_rb_EKUs::pre_rb_EKUs(NS_SHARED_PTR::shared_ptr<CPPCadesCPEKUsObject> other):
       m_pCppCadesImpl(other) { }
 
 long pre_rb_EKUs::get_count(void)
@@ -27,7 +27,7 @@ long pre_rb_EKUs::get_count(void)
 
 pre_rb_EKU pre_rb_EKUs::get_item(long index)
 {
-  boost::shared_ptr<CPPCadesCPEKUObject> pCppCadesEKU = boost::shared_ptr<CPPCadesCPEKUObject>(new CPPCadesCPEKUObject());
+  NS_SHARED_PTR::shared_ptr<CPPCadesCPEKUObject> pCppCadesEKU = NS_SHARED_PTR::shared_ptr<CPPCadesCPEKUObject>(new CPPCadesCPEKUObject());
   hr_method_check(m_pCppCadesImpl->get_Item(index, pCppCadesEKU));
   return pre_rb_EKU(pCppCadesEKU);
 }

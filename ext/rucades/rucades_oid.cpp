@@ -14,14 +14,14 @@ using namespace CryptoPro::PKI::CAdES;
 namespace rucades {
 
 pre_rb_OID::pre_rb_OID(void):
-      m_pCppCadesImpl(boost::shared_ptr<CPPCadesCPOIDObject>(new CPPCadesCPOIDObject())) { }
+      m_pCppCadesImpl(NS_SHARED_PTR::shared_ptr<CPPCadesCPOIDObject>(new CPPCadesCPOIDObject())) { }
 
-pre_rb_OID::pre_rb_OID(boost::shared_ptr<CPPCadesCPOIDObject> other):
+pre_rb_OID::pre_rb_OID(NS_SHARED_PTR::shared_ptr<CPPCadesCPOIDObject> other):
       m_pCppCadesImpl(other) { }
 
 std::string pre_rb_OID::get_value(void)
 {
-  boost::shared_ptr<CAtlStringA> pValue;
+  NS_SHARED_PTR::shared_ptr<CAtlStringA> pValue;
   hr_method_check(m_pCppCadesImpl->get_Value(pValue));
   return std::string((*pValue).GetString());
 }

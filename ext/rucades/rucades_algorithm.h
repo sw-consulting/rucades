@@ -11,10 +11,10 @@ namespace rucades {
 
 class pre_rb_Algorithm {
   protected:
-    boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPAlgorithmObject> m_pCppCadesImpl;
+    NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPAlgorithmObject> m_pCppCadesImpl;
   public:
     pre_rb_Algorithm(void);
-    pre_rb_Algorithm(boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPAlgorithmObject> other);
+    pre_rb_Algorithm(NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPAlgorithmObject> other);
     long get_name(void);
     void set_name(long name);
     long get_key_length(void);

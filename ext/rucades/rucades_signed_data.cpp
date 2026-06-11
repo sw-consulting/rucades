@@ -13,7 +13,7 @@ using namespace CryptoPro::PKI::CAdES;
 
 namespace rucades {
 pre_rb_SignedData::pre_rb_SignedData(void):
-    m_pCppCadesImpl(boost::shared_ptr<CPPCadesSignedDataObject>(new CPPCadesSignedDataObject())) { }
+    m_pCppCadesImpl(NS_SHARED_PTR::shared_ptr<CPPCadesSignedDataObject>(new CPPCadesSignedDataObject())) { }
 
 long pre_rb_SignedData::get_content_encoding(void)
 {
@@ -63,7 +63,7 @@ std::string pre_rb_SignedData::sign_cades(pre_rb_Signer* signer, long type, bool
     CADESCOM_CADES_TYPE CadesType = static_cast<CADESCOM_CADES_TYPE>(type);
     CryptoPro::CBlob blobSignedMessage;
 
-    boost::shared_ptr<CPPCadesCPSignerObject> pSignerCppCadesImpl;
+    NS_SHARED_PTR::shared_ptr<CPPCadesCPSignerObject> pSignerCppCadesImpl;
     if (signer) {
         pSignerCppCadesImpl = signer->m_pCppCadesImpl;
     }
@@ -82,7 +82,7 @@ std::string pre_rb_SignedData::cosign_cades(pre_rb_Signer* signer, long type, lo
     CADESCOM_CADES_TYPE CadesType = static_cast<CADESCOM_CADES_TYPE>(type);
     CryptoPro::CBlob blobSignedMessage;
 
-    boost::shared_ptr<CPPCadesCPSignerObject> pSignerCppCadesImpl;
+    NS_SHARED_PTR::shared_ptr<CPPCadesCPSignerObject> pSignerCppCadesImpl;
     if (signer) {
         pSignerCppCadesImpl = signer->m_pCppCadesImpl;
     }
@@ -99,7 +99,7 @@ std::string pre_rb_SignedData::sign_hash(pre_rb_HashedData& hash, pre_rb_Signer*
     CADESCOM_CADES_TYPE CadesType = static_cast<CADESCOM_CADES_TYPE>(type);
     CryptoPro::CBlob blobSignedMessage;
 
-    boost::shared_ptr<CPPCadesCPSignerObject> pSignerCppCadesImpl;
+    NS_SHARED_PTR::shared_ptr<CPPCadesCPSignerObject> pSignerCppCadesImpl;
     if (signer) {
         pSignerCppCadesImpl = signer->m_pCppCadesImpl;
     }
@@ -117,7 +117,7 @@ std::string pre_rb_SignedData::cosign_hash(pre_rb_HashedData& hash, pre_rb_Signe
     CADESCOM_CADES_TYPE CadesType = static_cast<CADESCOM_CADES_TYPE>(type);
     CryptoPro::CBlob blobSignedMessage;
 
-    boost::shared_ptr<CPPCadesCPSignerObject> pSignerCppCadesImpl;
+    NS_SHARED_PTR::shared_ptr<CPPCadesCPSignerObject> pSignerCppCadesImpl;
     if (signer) {
         pSignerCppCadesImpl = signer->m_pCppCadesImpl;
     }
@@ -134,7 +134,7 @@ std::string pre_rb_SignedData::sign(pre_rb_Signer* signer, bool detached, long e
     CAPICOM_ENCODING_TYPE EncodingType = static_cast<CAPICOM_ENCODING_TYPE>(enc);
     CryptoPro::CBlob blobSignedMessage;
 
-    boost::shared_ptr<CPPCadesCPSignerObject> pSignerCppCadesImpl;
+    NS_SHARED_PTR::shared_ptr<CPPCadesCPSignerObject> pSignerCppCadesImpl;
     if (signer) {
         pSignerCppCadesImpl = signer->m_pCppCadesImpl;
     }
@@ -150,7 +150,7 @@ std::string pre_rb_SignedData::cosign(pre_rb_Signer* signer, long enc)
     CAPICOM_ENCODING_TYPE EncodingType = static_cast<CAPICOM_ENCODING_TYPE>(enc);
     CryptoPro::CBlob blobSignedMessage;
 
-    boost::shared_ptr<CPPCadesCPSignerObject> pSignerCppCadesImpl;
+    NS_SHARED_PTR::shared_ptr<CPPCadesCPSignerObject> pSignerCppCadesImpl;
     if (signer) {
         pSignerCppCadesImpl = signer->m_pCppCadesImpl;
     }

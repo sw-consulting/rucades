@@ -13,9 +13,9 @@ using namespace CryptoPro::PKI::CAdES;
 
 namespace rucades {
 pre_rb_KeyUsage::pre_rb_KeyUsage(void):
-      m_pCppCadesImpl(boost::shared_ptr<CPPCadesCPKeyUsageObject>(new CPPCadesCPKeyUsageObject())) { }
+      m_pCppCadesImpl(NS_SHARED_PTR::shared_ptr<CPPCadesCPKeyUsageObject>(new CPPCadesCPKeyUsageObject())) { }
 
-pre_rb_KeyUsage::pre_rb_KeyUsage(boost::shared_ptr<CPPCadesCPKeyUsageObject> other):
+pre_rb_KeyUsage::pre_rb_KeyUsage(NS_SHARED_PTR::shared_ptr<CPPCadesCPKeyUsageObject> other):
       m_pCppCadesImpl(other) { }
 
 bool pre_rb_KeyUsage::is_present(void)
@@ -102,7 +102,7 @@ void pre_rb_KeyUsage::define_ruby_class(VALUE module)
     .define_constructor(Constructor<pre_rb_KeyUsage>())
     .define_method("present?", &pre_rb_KeyUsage::is_present)
     .define_method("critical?", &pre_rb_KeyUsage::is_critical)
-    .define_method("digital_ignature_enabled?", &pre_rb_KeyUsage::is_digital_signature_enabled)
+    .define_method("digital_signature_enabled?", &pre_rb_KeyUsage::is_digital_signature_enabled)
     .define_method("non_repudiation_enabled?", &pre_rb_KeyUsage::is_non_repudiation_enabled)
     .define_method("key_encipherment_enabled?", &pre_rb_KeyUsage::is_key_encipherment_enabled)
     .define_method("key_agreement_enabled?", &pre_rb_KeyUsage::is_key_agreement_enabled)

@@ -13,7 +13,7 @@ using namespace CryptoPro::PKI::CAdES;
 
 namespace rucades {
 pre_rb_EnvelopedData::pre_rb_EnvelopedData(void):
-      m_pCppCadesImpl(boost::shared_ptr<CPPCadesCPEnvelopedDataObject>(new CPPCadesCPEnvelopedDataObject())) { }
+      m_pCppCadesImpl(NS_SHARED_PTR::shared_ptr<CPPCadesCPEnvelopedDataObject>(new CPPCadesCPEnvelopedDataObject())) { }
 
 std::string pre_rb_EnvelopedData::get_content(void)
 {

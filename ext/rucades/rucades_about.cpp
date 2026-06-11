@@ -13,7 +13,7 @@ using namespace CryptoPro::PKI::CAdES;
 
 namespace rucades {
 pre_rb_About::pre_rb_About(void):
-      m_pCppCadesImpl(boost::shared_ptr<CPPCadesAboutObject>(new CPPCadesAboutObject())) { }
+      m_pCppCadesImpl(NS_SHARED_PTR::shared_ptr<CPPCadesAboutObject>(new CPPCadesAboutObject())) { }
 
 unsigned int pre_rb_About::major_version(void)
 {
@@ -45,14 +45,14 @@ std::string pre_rb_About::version(void)
 
 pre_rb_Version pre_rb_About::plugin_version(void)
 {
-  boost::shared_ptr<CryptoPro::PKI::CAdES::CPPVersionObject> p_version;
+  NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPVersionObject> p_version;
   hr_method_check(m_pCppCadesImpl->get_PluginVersion(p_version));
   return pre_rb_Version(p_version);
 }
 
 pre_rb_Version pre_rb_About::csp_version(std::string prov_name, long prov_type)
 {
-  boost::shared_ptr<CryptoPro::PKI::CAdES::CPPVersionObject> p_version;
+  NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPVersionObject> p_version;
   CAtlString provName = CAtlString(CA2CT(CAtlStringA(prov_name.c_str()), CP_UTF8));
 
   hr_method_check(m_pCppCadesImpl->get_CSPVersion(provName, prov_type, p_version));

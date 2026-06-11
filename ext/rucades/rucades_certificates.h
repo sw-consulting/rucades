@@ -12,10 +12,10 @@
 namespace rucades {
 class pre_rb_Certificates {
   protected:
-    boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPCertificatesObject> m_pCppCadesImpl;
+    NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPCertificatesObject> m_pCppCadesImpl;
   public:
     pre_rb_Certificates(void);
-    pre_rb_Certificates(boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPCertificatesObject> pCppCadesCertificates);
+    pre_rb_Certificates(NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPCertificatesObject> pCppCadesCertificates);
     long get_count(void);
     bool has_any(void);
     pre_rb_Certificate get_item(long index);

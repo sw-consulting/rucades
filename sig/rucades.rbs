@@ -1,4 +1,853 @@
 module Rucades
   VERSION: String
-  # See the writing guide of rbs: https://github.com/ruby/rbs#guides
+
+  # Padding
+  ANSI_X923_PADDING: Integer
+  ISO10126_PADDING: Integer
+  ISO_IEC_7816_4_PADDING: Integer
+  PKCS5_PADDING: Integer
+  RANDOM_PADDING: Integer
+  TLS_1_0_PADDING: Integer
+  ZERO_PADDING: Integer
+
+  # Key specs
+  AT_KEYEXCHANGE: Integer
+  AT_SIGNATURE: Integer
+
+  # CADESCOM attribute types
+  CADESCOM_ATTRIBUTE_OTHER: Integer
+  CADESCOM_AUTHENTICATED_ATTRIBUTE_DOCUMENT_DESCRIPTION: Integer
+  CADESCOM_AUTHENTICATED_ATTRIBUTE_DOCUMENT_NAME: Integer
+  CADESCOM_AUTHENTICATED_ATTRIBUTE_SIGNING_TIME: Integer
+  CAPICOM_AUTHENTICATED_ATTRIBUTE_DOCUMENT_DESCRIPTION: Integer
+  CAPICOM_AUTHENTICATED_ATTRIBUTE_DOCUMENT_NAME: Integer
+  CAPICOM_AUTHENTICATED_ATTRIBUTE_SIGNING_TIME: Integer
+
+  # CADESCOM flags
+  CADESCOM_AllowNoOutstandingRequest: Integer
+  CADESCOM_AllowNone: Integer
+  CADESCOM_AllowUntrustedCertificate: Integer
+  CADESCOM_AllowUntrustedRoot: Integer
+  CADESCOM_SkipInstallToStore: Integer
+
+  # CADESCOM encoding
+  CADESCOM_BASE64_TO_BINARY: Integer
+  CADESCOM_ENCODE_ANY: Integer
+  CADESCOM_ENCODE_BASE64: Integer
+  CADESCOM_ENCODE_BINARY: Integer
+  CAPICOM_ENCODE_ANY: Integer
+  CAPICOM_ENCODE_BASE64: Integer
+  CAPICOM_ENCODE_BINARY: Integer
+
+  # CADESCOM CAdES types
+  CADESCOM_CADES_A: Integer
+  CADESCOM_CADES_BES: Integer
+  CADESCOM_CADES_DEFAULT: Integer
+  CADESCOM_CADES_T: Integer
+  CADESCOM_CADES_X_LONG_TYPE_1: Integer
+  CADESCOM_PKCS7_TYPE: Integer
+
+  # CADESCOM XAdES types
+  CADESCOM_XADES_A: Integer
+  CADESCOM_XADES_BES: Integer
+  CADESCOM_XADES_DEFAULT: Integer
+  CADESCOM_XADES_T: Integer
+  CADESCOM_XADES_X_LONG_TYPE_1: Integer
+  CADESCOM_XMLDSIG_TYPE: Integer
+  CADESCOM_XML_SIGNATURE_TYPE_ENVELOPED: Integer
+  CADESCOM_XML_SIGNATURE_TYPE_ENVELOPING: Integer
+  CADESCOM_XML_SIGNATURE_TYPE_TEMPLATE: Integer
+
+  # CADESCOM store types
+  CADESCOM_CONTAINER_STORE: Integer
+  CADESCOM_CURRENT_USER_STORE: Integer
+  CADESCOM_LOCAL_MACHINE_STORE: Integer
+  CADESCOM_MEMORY_STORE: Integer
+  CAPICOM_CURRENT_USER_STORE: Integer
+  CAPICOM_LOCAL_MACHINE_STORE: Integer
+
+  # CAPICOM store names
+  CAPICOM_CA_STORE: String
+  CAPICOM_MY_STORE: String
+  CAPICOM_OTHER_STORE: String
+  CAPICOM_ROOT_STORE: String
+
+  # CAPICOM store open mode
+  CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED: Integer
+
+  # CADESCOM display data
+  CADESCOM_DISPLAY_DATA_ATTRIBUTE: Integer
+  CADESCOM_DISPLAY_DATA_CONTENT: Integer
+  CADESCOM_DISPLAY_DATA_NONE: Integer
+  CADESCOM_STRING_TO_UCS2LE: Integer
+
+  # CADESCOM encryption algorithms
+  CADESCOM_ENCRYPTION_ALGORITHM_3DES: Integer
+  CADESCOM_ENCRYPTION_ALGORITHM_AES: Integer
+  CADESCOM_ENCRYPTION_ALGORITHM_DES: Integer
+  CADESCOM_ENCRYPTION_ALGORITHM_GOST_28147_89: Integer
+  CADESCOM_ENCRYPTION_ALGORITHM_RC2: Integer
+  CADESCOM_ENCRYPTION_ALGORITHM_RC4: Integer
+
+  # CADESCOM hash algorithms
+  CADESCOM_HASH_ALGORITHM_CP_GOST_3411: Integer
+  CADESCOM_HASH_ALGORITHM_CP_GOST_3411_2012_256: Integer
+  CADESCOM_HASH_ALGORITHM_CP_GOST_3411_2012_256_HMAC: Integer
+  CADESCOM_HASH_ALGORITHM_CP_GOST_3411_2012_512: Integer
+  CADESCOM_HASH_ALGORITHM_CP_GOST_3411_2012_512_HMAC: Integer
+  CADESCOM_HASH_ALGORITHM_CP_GOST_3411_HMAC: Integer
+  CADESCOM_HASH_ALGORITHM_MD2: Integer
+  CADESCOM_HASH_ALGORITHM_MD4: Integer
+  CADESCOM_HASH_ALGORITHM_MD5: Integer
+  CADESCOM_HASH_ALGORITHM_SHA1: Integer
+  CADESCOM_HASH_ALGORITHM_SHA_256: Integer
+  CADESCOM_HASH_ALGORITHM_SHA_384: Integer
+  CADESCOM_HASH_ALGORITHM_SHA_512: Integer
+
+  # CAPICOM certificate find types
+  CAPICOM_CERTIFICATE_FIND_APPLICATION_POLICY: Integer
+  CAPICOM_CERTIFICATE_FIND_CERTIFICATE_POLICY: Integer
+  CAPICOM_CERTIFICATE_FIND_EXTENDED_PROPERTY: Integer
+  CAPICOM_CERTIFICATE_FIND_EXTENSION: Integer
+  CAPICOM_CERTIFICATE_FIND_ISSUER_NAME: Integer
+  CAPICOM_CERTIFICATE_FIND_KEY_USAGE: Integer
+  CAPICOM_CERTIFICATE_FIND_ROOT_NAME: Integer
+  CAPICOM_CERTIFICATE_FIND_SHA1_HASH: Integer
+  CAPICOM_CERTIFICATE_FIND_SUBJECT_NAME: Integer
+  CAPICOM_CERTIFICATE_FIND_TEMPLATE_NAME: Integer
+  CAPICOM_CERTIFICATE_FIND_TIME_EXPIRED: Integer
+  CAPICOM_CERTIFICATE_FIND_TIME_NOT_YET_VALID: Integer
+  CAPICOM_CERTIFICATE_FIND_TIME_VALID: Integer
+
+  # CAPICOM certificate include
+  CAPICOM_CERTIFICATE_INCLUDE_CHAIN_EXCEPT_ROOT: Integer
+  CAPICOM_CERTIFICATE_INCLUDE_END_ENTITY_ONLY: Integer
+  CAPICOM_CERTIFICATE_INCLUDE_WHOLE_CHAIN: Integer
+
+  # CAPICOM cert info types
+  CAPICOM_CERT_INFO_ISSUER_DNS_NAME: Integer
+  CAPICOM_CERT_INFO_ISSUER_EMAIL_NAME: Integer
+  CAPICOM_CERT_INFO_ISSUER_SIMPLE_NAME: Integer
+  CAPICOM_CERT_INFO_ISSUER_UPN: Integer
+  CAPICOM_CERT_INFO_SUBJECT_DNS_NAME: Integer
+  CAPICOM_CERT_INFO_SUBJECT_EMAIL_NAME: Integer
+  CAPICOM_CERT_INFO_SUBJECT_SIMPLE_NAME: Integer
+  CAPICOM_CERT_INFO_SUBJECT_UPN: Integer
+
+  # CAPICOM key usage
+  CAPICOM_DATA_ENCIPHERMENT_KEY_USAGE: Integer
+  CAPICOM_DIGITAL_SIGNATURE_KEY_USAGE: Integer
+  CAPICOM_OID_KEY_USAGE_EXTENSION: Integer
+
+  # CAPICOM EKU
+  CAPICOM_EKU_CLIENT_AUTH: Integer
+  CAPICOM_EKU_CODE_SIGNING: Integer
+  CAPICOM_EKU_EMAIL_PROTECTION: Integer
+  CAPICOM_EKU_ENCRYPTING_FILE_SYSTEM: Integer
+  CAPICOM_EKU_OTHER: Integer
+  CAPICOM_EKU_SERVER_AUTH: Integer
+  CAPICOM_EKU_SMARTCARD_LOGON: Integer
+
+  # CAPICOM OID
+  CAPICOM_OID_BASIC_CONSTRAINTS2_EXTENSION: Integer
+  CAPICOM_OID_OTHER: Integer
+
+  # CAPICOM encryption key lengths
+  CAPICOM_ENCRYPTION_KEY_LENGTH_128_BITS: Integer
+  CAPICOM_ENCRYPTION_KEY_LENGTH_192_BITS: Integer
+  CAPICOM_ENCRYPTION_KEY_LENGTH_256_BITS: Integer
+  CAPICOM_ENCRYPTION_KEY_LENGTH_40_BITS: Integer
+  CAPICOM_ENCRYPTION_KEY_LENGTH_56_BITS: Integer
+  CAPICOM_ENCRYPTION_KEY_LENGTH_MAXIMUM: Integer
+
+  # CRYPT modes
+  CRYPT_MODE_CBCRFC4357: Integer
+  CRYPT_MODE_CBCSTRICT: Integer
+  CRYPT_MODE_CNT: Integer
+  CRYPT_MODE_CTR: Integer
+  CRYPT_MODE_GCM: Integer
+  CRYPT_MODE_MGM: Integer
+  CRYPT_MODE_OMAC_CTR: Integer
+  CRYPT_MODE_WRAP: Integer
+  CRYPT_MODE_WRAP_PAD: Integer
+
+  # Carrier/media types
+  DISABLE_EVERY_CARRIER_OPERATION: Integer
+  ENABLE_ANY_CARRIER_TYPE: Integer
+  ENABLE_ANY_OPERATION: Integer
+  ENABLE_CARRIER_CREATE: Integer
+  ENABLE_CARRIER_OPEN_ENUM: Integer
+  ENABLE_CARRIER_TYPE_CSP: Integer
+  ENABLE_CARRIER_TYPE_FKC_NO_SM: Integer
+  ENABLE_CARRIER_TYPE_FKC_SM: Integer
+  MEDIA_TYPE_CLOUD: Integer
+  MEDIA_TYPE_HDIMAGE: Integer
+  MEDIA_TYPE_REGISTRY: Integer
+  MEDIA_TYPE_SCARD: Integer
+
+  # Misc
+  XCN_CRYPT_STRING_BASE64HEADER: Integer
+
+  # XML signature algorithm URLs
+  XmlDsigGost3410Url: String
+  XmlDsigGost3410Url2012256: String
+  XmlDsigGost3410Url2012512: String
+  XmlDsigGost3410UrlObsolete: String
+  XmlDsigGost3411Url: String
+  XmlDsigGost3411Url2012256: String
+  XmlDsigGost3411Url2012512: String
+  XmlDsigGost3411UrlObsolete: String
+
+  # CAdESCOM.About
+  # Версия библиотеки.
+  class About
+    def initialize: () -> void
+
+    # Возвращает строковое представление версии.
+    def version: () -> String
+
+    # Возвращает старший компонент версии.
+    def major_version: () -> Integer
+
+    # Возвращает младший компонент версии.
+    def minor_version: () -> Integer
+
+    # Возвращает номер сборки.
+    def build_version: () -> Integer
+
+    # Возвращает объект Version c версией плагина.
+    def plugin_version: () -> Version
+
+    # Возвращает объект Version c версией криптопровайдера (CSP) производства компании Крипто-Про.
+    def csp_version: (?String prov_name, ?Integer prov_type) -> Version
+  end
+
+  # CAdESCOM.Version
+  # Описывает версию.
+  class Version
+    # Возвращает старший компонент версии.
+    def major_version: () -> Integer
+
+    # Возвращает младший компонент версии.
+    def minor_version: () -> Integer
+
+    # Возвращает номер сборки.
+    def build_version: () -> Integer
+
+    # Возвращает строковое представление версии.
+    def to_s: () -> String
+  end
+
+  class OID
+    # Возвращает или задаёт понятное имя идентификатора объекта.
+    def friendly_name: () -> String
+    def friendly_name=: (String) -> String
+
+    # Возвращает или задаёт числовой идентификатор OID.
+    def name: () -> Integer
+    def name=: (Integer) -> Integer
+
+    # Возвращает или задаёт строковое значение OID.
+    def value: () -> String
+    def value=: (String) -> String
+  end
+
+  # CAdESCOM.CPAttribute
+  # Атрибут усовершенствованной подписи (подписанный или неподписанный).
+  class Attribute
+    def initialize: () -> void
+
+    # Возвращает объектный идентификатор (OID) атрибута.
+    def oid: () -> OID
+
+    # Имя атрибута. Аналогично свойству Name объекта CAPICOM.Attribute.
+    def name: () -> Integer
+    def name=: (Integer) -> Integer
+
+    # Возвращает закодированное значение атрибута.
+    def value: (?Integer encoding) -> String
+    def value=: (String) -> String
+
+    # Способ кодирования значения атрибута.
+    def value_type: () -> Integer
+    def value_type=: (Integer) -> Integer
+  end
+
+  class Attributes
+    # Возвращает количество атрибутов в коллекции.
+    def count: () -> Integer
+
+    # Возвращает атрибут с заданным индексом.
+    def []: (Integer index) -> Attribute
+
+    # Добавляет атрибут в коллекцию.
+    def add: (Attribute attribute) -> void
+    def <<: (Attribute attribute) -> void
+
+    # Удаляет атрибут из коллекции.
+    def remove: (Integer index) -> void
+
+    # Очищает коллекцию.
+    def clear: () -> void
+  end
+
+  # CAdESCOM.CRL
+  # Объект для работы со списком отозванных сертификатов.
+  class CRL
+    def initialize: () -> void
+
+    # Возвращает информацию об идентификаторе ключа УЦ, издавшего список отозванных сертификатов.
+    def auth_key_id: () -> String
+
+    # Возвращает информацию об издателе списка отозванных сертификатов.
+    def issuer_name: () -> String
+
+    # Возвращает информацию о дате следующего обновления списка отозванных сертификатов.
+    def next_update: () -> String
+
+    # Возвращает информацию о дате выпуска списка отозванных сертификатов.
+    def this_update: () -> String
+
+    # Возвращает информацию об отпечатке списка отозванных сертификатов.
+    def thumbprint: () -> String
+
+    # Экспортирует список отозванных сертификатов в заданной кодировке (CAPICOM_ENCODING_TYPE).
+    def export: (Integer encoding_type) -> String
+
+    # Инициализирует список отозванных сертификатов.
+    def import: (String blob_crl) -> void
+  end
+
+  class BasicConstraints
+    # Является ли сертификат центром сертификации.
+    def certificate_authority?: () -> bool
+
+    # Является ли расширение критическим.
+    def critical?: () -> bool
+
+    # Присутствует ли ограничение длины пути.
+    def pathlen_constraint_present?: () -> bool
+
+    # Присутствует ли расширение в сертификате.
+    def present?: () -> bool
+
+    # Максимальная длина цепочки сертификатов.
+    def path_len_constraint: () -> Integer
+  end
+
+  class EKU
+    # Имя расширенного использования ключа (CAPICOM_EKU).
+    def name: () -> Integer
+    def name=: (Integer) -> Integer
+
+    # OID расширенного использования ключа.
+    def oid: () -> String
+    def oid=: (String) -> String
+  end
+
+  class EKUs
+    # Возвращает количество записей в коллекции.
+    def count: () -> Integer
+
+    # Возвращает запись с заданным индексом.
+    def []: (Integer index) -> EKU
+  end
+
+  class KeyUsage
+    # Установлен ли бит CRLSign.
+    def crl_sign_enabled?: () -> bool
+
+    # Установлен ли бит dataEncipherment.
+    def data_encipherment_enabled?: () -> bool
+
+    # Установлен ли бит decipherOnly.
+    def decipher_only_enabled?: () -> bool
+
+    # Установлен ли бит digitalSignature.
+    def digital_signature_enabled?: () -> bool
+
+    # Установлен ли бит encipherOnly.
+    def encipher_only_enabled?: () -> bool
+
+    # Установлен ли бит keyAgreement.
+    def key_agreement_enabled?: () -> bool
+
+    # Установлен ли бит keyCertSign.
+    def key_cert_sign_enabled?: () -> bool
+
+    # Установлен ли бит keyEncipherment.
+    def key_encipherment_enabled?: () -> bool
+
+    # Установлен ли бит nonRepudiation.
+    def non_repudiation_enabled?: () -> bool
+
+    # Присутствует ли расширение в сертификате.
+    def present?: () -> bool
+
+    # Является ли расширение критическим.
+    def critical?: () -> bool
+  end
+
+  class ExtendedKeyUsage
+    # Коллекция расширенных использований ключа.
+    def ekus: () -> EKUs
+
+    # Присутствует ли расширение в сертификате.
+    def present?: () -> bool
+
+    # Является ли расширение критическим.
+    def critical?: () -> bool
+  end
+
+  # CAdESCOM.PublicKey
+  # Описывает открытый ключ сертификата.
+  class PublicKey
+    # Возвращает OID алгоритма открытого ключа.
+    def algorithm: () -> OID
+
+    # Возвращает значение открытого ключа.
+    def encoded_key: () -> EncodedData
+
+    # Возвращает параметры алгоритма открытого ключа.
+    def encoded_parameters: () -> EncodedData
+
+    # Возвращает длину открытого ключа в битах.
+    def length: () -> Integer
+  end
+
+  class PrivateKey
+    # Имя контейнера закрытого ключа.
+    def container_name: () -> String
+
+    # Тип ключа (AT_KEYEXCHANGE или AT_SIGNATURE).
+    def key_spec: () -> Integer
+
+    # Имя криптопровайдера.
+    def provider_name: () -> String
+
+    # Тип криптопровайдера.
+    def provider_type: () -> Integer
+
+    # Уникальное имя контейнера.
+    def unique_container_name: () -> String
+
+    # Устанавливает PIN-код кэша.
+    def cache_pin=: (String) -> String
+
+    # Устанавливает PIN-код контейнера закрытого ключа.
+    def key_pin=: (String) -> String
+
+    # Изменяет PIN-код контейнера.
+    def change_pin: () -> void
+  end
+
+  class EncodedData
+    def initialize: () -> void
+
+    # Возвращает строковое представление формата.
+    def format: (?bool multiline) -> String
+
+    # Возвращает закодированное значение (CAPICOM_ENCODING_TYPE).
+    def value: (?Integer encoding) -> String
+  end
+
+  # CAdESCOM.CPCertificate
+  # Описывает сертификат открытого ключа.
+  class Certificate
+    def initialize: () -> void
+
+    # Издатель сертификата.
+    def issuer_name: () -> String
+
+    # Закрытый ключ.
+    def private_key: () -> PrivateKey
+
+    # Серийный номер.
+    def serial_number: () -> String
+
+    # Имя субъекта.
+    def subject_name: () -> String
+
+    # Отпечаток.
+    def thumbprint: () -> String
+
+    # Дата, с которой сертификат действителен.
+    def valid_from_date: () -> String
+
+    # Дата, до которой сертификат действителен.
+    def valid_to_date: () -> String
+
+    # Версия сертификата.
+    def version: () -> Integer
+
+    # Передать в объект дополнительное хранилище для проверки статуса сертификата.
+    def additional_store: (Store store) -> void
+
+    # Возвращает объект BasicConstraints для данного сертификата.
+    def basic_constraints: () -> BasicConstraints
+
+    # Экспортирует сертификат в заданной кодировке (CAPICOM_ENCODING_TYPE).
+    def export: (Integer encoding_type) -> String
+
+    # Возвращает объект ExtendedKeyUsage для данного сертификата.
+    def extended_key_usage: () -> ExtendedKeyUsage
+
+    # Имеется ли закрытый ключ для сертификата.
+    def has_private_key?: () -> bool
+
+    # Импортирует сертификат из закодированной строки.
+    def import: (String encoded_data) -> void
+
+    # Является ли сертификат валидным (возвращает статус сертификата)
+    def certificate_status: () -> CertificateStatus
+
+    # Возвращает объект KeyUsage для данного сертификата.
+    def key_usage: () -> KeyUsage
+
+    # Возвращает объект PublicKey для данного сертификата.
+    def public_key: () -> PublicKey
+
+    # NOT IMPLEMENTED in C++:
+    # def find_private_key: () -> void
+    # def get_info: (Integer info_type) -> String
+  end
+
+  # CAdESCOM.Certificates
+  # Описывает коллекцию сертификатов.
+  # Реализованы методы find, [], count.
+  class Certificates
+    # Возвращает количество объектов в коллекции сертификатов.
+    def count: () -> Integer
+
+    # Возвращает сертификат с заданным индексом из коллекции.
+    def []: (Integer index) -> Certificate
+
+    # Возвращает коллекцию сертификатов, удовлетворяющих заданному критерию.
+    # find_type — CAPICOM_CERTIFICATE_FIND_TYPE
+    # criteria — данные для поиска; время передаётся в виде "YYYYMMDDhhmmss.ddddddZ"
+    # valid_only — возвращать только валидные сертификаты
+    def find: (Integer find_type, ?Integer | String criteria, ?Integer valid_only) -> Certificates
+  end
+
+  # CAdESCOM.CertificateStatus
+  # Описывает статус сертификата открытого ключа.
+  class CertificateStatus
+    # Является ли сертификат валидным.
+    def result?: () -> bool
+
+    # NOT IMPLEMENTED in C++:
+    # def validation_certificates: () -> untyped
+    # def error_status: () -> untyped
+  end
+
+  class Algorithm
+    def initialize: () -> void
+
+    # Имя алгоритма.
+    def name: () -> Integer
+    def name=: (Integer) -> Integer
+
+    # Длина ключа (CAPICOM_ENCRYPTION_KEY_LENGTH).
+    def key_length: () -> Integer
+    def key_length=: (Integer) -> Integer
+  end
+
+  # Описывает статус подписи.
+  class SignatureStatus
+    # Является ли подпись валидной.
+    def valid?: () -> bool
+
+    # NOT IMPLEMENTED in C++:
+    # def validity_period_validity: () -> Integer
+    # def issuer_validity: () -> Integer
+    # def revocation_validity: () -> Integer
+    # def chain_build_validity: () -> Integer
+    # def chain_validity: () -> Integer
+    # def certificate_validity: () -> Integer
+    # def reference_validity: () -> Integer
+    # def signature_validity: () -> Integer
+    # def codesigning_validity: () -> Integer
+    # def timestamp_validity: () -> Integer
+  end
+
+  class Signer
+    def initialize: () -> void
+
+    # Подписанные атрибуты подписанта.
+    def authenticated_attributes: () -> Attributes
+    def authenticated_attributes=: (Attributes) -> Attributes
+
+    # Сертификат подписанта.
+    def certificate: () -> Certificate
+    def certificate=: (Certificate) -> Certificate
+
+    # Проверять ли сертификат при подписи.
+    def check_certificate: () -> bool
+    def check_certificate=: (bool) -> bool
+
+    # Списки отозванных сертификатов.
+    def crls: () -> untyped
+
+    # Устанавливает PIN-код контейнера закрытого ключа.
+    def key_pin=: (String) -> String
+
+    # OCSP-ответы.
+    def ocsp_responses: () -> untyped
+
+    # Параметры подписи.
+    def options: () -> Integer
+    def options=: (Integer) -> Integer
+
+    # Время метки подписи.
+    def signature_time_stamp_time: () -> String
+
+    # Время подписи.
+    def signing_time: () -> String
+
+    # Адрес службы TSA.
+    def tsa_address: () -> String
+    def tsa_address=: (String) -> String
+
+    # Неподписанные атрибуты подписанта.
+    def unauthenticated_attributes: () -> Attributes
+    def unauthenticated_attributes=: (Attributes) -> Attributes
+
+    # NOT IMPLEMENTED in C++:
+    # def key_pin: () -> String
+    # def signature_status: () -> SignatureStatus
+  end
+
+  class Signers
+    # Возвращает количество подписантов.
+    def count: () -> Integer
+
+    # Возвращает подписанта с заданным индексом.
+    def []: (Integer index) -> Signer
+  end
+
+  class SignedData
+    def initialize: () -> void
+
+    # Сертификаты, включённые в подписанное сообщение.
+    def certificates: () -> Certificates
+
+    # Подписываемые данные.
+    def content: () -> String
+    def content=: (String) -> String
+
+    # Кодировка содержимого.
+    def content_encoding: () -> Integer
+    def content_encoding=: (Integer) -> Integer
+
+    # Подписанты.
+    def signers: () -> Signers
+
+    # Передать дополнительное хранилище для проверки статуса сертификата.
+    def additional_store: (Store store) -> void
+
+    # Добавить подпись (соподписание) в существующее сообщение.
+    def cosign: (?Signer signer, ?Integer cades_type) -> String
+    def cosign_cades: (?Signer signer, ?Integer cades_type, ?bool detached) -> String
+    def cosign_hash: (HashedData hashed_data, ?Signer signer, ?Integer cades_type) -> String
+
+    # Улучшить подпись CAdES-BES до CAdES-T или CAdES-X Long Type 1.
+    def enhance_cades: (String signed_message, String tsa_address, ?Integer cades_type) -> String
+
+    # Подписать данные.
+    def sign: (?Signer signer, ?bool detached, ?Integer encoding_type) -> String
+    def sign_cades: (?Signer signer, ?Integer cades_type, ?bool detached, ?Integer encoding_type) -> String
+    def sign_hash: (HashedData hashed_data, ?Signer signer, ?Integer cades_type) -> String
+
+    # Проверить подпись.
+    def verify: (String signed_message, ?bool detached, ?Integer verify_flag) -> void
+    def verify_cades: (String signed_message, ?Integer cades_type, ?bool detached) -> void
+    def verify_hash: (HashedData hashed_data, String signed_message, ?Integer cades_type) -> void
+  end
+
+  class SignedXML
+    def initialize: () -> void
+
+    # Подписываемый XML.
+    def content: () -> String
+    def content=: (String) -> String
+
+    # Метод хэширования (только запись).
+    def digest_method=: (String) -> String
+
+    # Метод подписи (только запись).
+    def signature_method=: (String) -> String
+
+    # Тип XML-подписи (только запись, CADESCOM_XML_SIGNATURE_TYPE).
+    def signature_type=: (Integer) -> Integer
+
+    # Подписанты.
+    def signers: () -> Signers
+
+    # Подписать XML.
+    def sign: (?Signer signer) -> String
+
+    # Проверить XML-подпись.
+    def verify: (String signed_xml) -> void
+
+    # NOT IMPLEMENTED in C++ (write-only properties):
+    # def digest_method: () -> String
+    # def signature_method: () -> String
+    # def signature_type: () -> Integer
+  end
+
+  class HashedData
+    def initialize: () -> void
+
+    # Алгоритм хэширования (CADESCOM_HASH_ALGORITHM).
+    def algorithm: () -> Integer
+    def algorithm=: (Integer) -> Integer
+
+    # Кодировка входных данных.
+    def data_encoding: () -> Integer
+    def data_encoding=: (Integer) -> Integer
+
+    # Ключ для HMAC.
+    def key: () -> String
+    def key=: (String) -> String
+
+    # Значение хэша.
+    def value: () -> String
+
+    # Хэшировать данные.
+    def hash: (String data) -> void
+
+    # Установить значение хэша напрямую.
+    def hash_value=: (String hash_value) -> void
+  end
+
+  class RawSignature
+    def initialize: () -> void
+
+    # Подписать хэш.
+    def sign_hash: (HashedData hashed_data, Certificate certificate) -> String
+
+    # Проверить подпись хэша.
+    def verify_hash: (HashedData hashed_data, String signature, Certificate certificate) -> void
+  end
+
+  class EnvelopedData
+    def initialize: () -> void
+
+    # Алгоритм шифрования.
+    def algorithm: () -> Algorithm
+
+    # Шифруемые данные.
+    def content: () -> String
+    def content=: (String) -> String
+
+    # Кодировка содержимого.
+    def content_encoding: () -> Integer
+    def content_encoding=: (Integer) -> Integer
+
+    # Получатели зашифрованного сообщения.
+    def recipients: () -> Recipients
+
+    # Расшифровать сообщение.
+    def decrypt: (String encoded_message) -> void
+
+    # Зашифровать данные.
+    def encrypt: (?Integer encoding_type) -> String
+
+    def stream_decrypt: (String encoded_message) -> void
+    def stream_encrypt: (?Integer encoding_type) -> String
+  end
+
+  # Коллекция получателей зашифрованного сообщения.
+  class Recipients
+    # Возвращает количество получателей.
+    def count: () -> Integer
+
+    # Возвращает получателя с заданным индексом.
+    def []: (Integer index) -> Certificate
+
+    # Добавляет сертификат получателя.
+    def add: (Certificate certificate) -> void
+    def <<: (Certificate certificate) -> void
+
+    # Удаляет получателя из коллекции.
+    def remove: (Integer index) -> void
+
+    # Очищает коллекцию.
+    def clear: () -> void
+  end
+
+  # Коллекция бинарных блобов.
+  class Blobs
+    def count: () -> Integer
+    def []: (Integer index) -> untyped
+  end
+
+  # CAdESCOM.Store
+  # Хранилище сертификатов.
+  class Store
+    def initialize: () -> void
+
+    # Сертификаты в хранилище.
+    def certificates: () -> Certificates
+
+    # Расположение хранилища.
+    def location: () -> Integer
+
+    # Имя хранилища.
+    def name: () -> String
+
+    # Добавить сертификат в хранилище.
+    def add: (Certificate certificate) -> void
+
+    # Добавить CRL в хранилище.
+    def add_crl: (CRL crl) -> void
+
+    # Закрыть хранилище.
+    def close: () -> void
+
+    # Открыть хранилище.
+    # location — CADESCOM_STORE_LOCATION или CAPICOM_STORE_LOCATION
+    # name — имя хранилища (CAPICOM_MY_STORE и т.д.)
+    # mode — режим открытия (CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED и т.д.)
+    def open: (Integer location, String | Integer name, Integer mode) -> void
+  end
+
+  class SymmetricAlgorithm
+    def initialize: () -> void
+
+    # Данные для диверсификации ключа.
+    def divers_data: () -> String
+    def divers_data=: (String) -> String
+
+    # Вектор инициализации.
+    def iv: () -> String
+    def iv=: (String) -> String
+
+    # Расшифровать данные.
+    def decrypt: (String encoded_message, ?bool final) -> String
+
+    # Диверсифицировать ключ.
+    def diversify_key: (String divers_data) -> void
+
+    # Зашифровать данные.
+    def encrypt: (String data, ?bool final) -> String
+
+    # Экспортировать ключ.
+    def export_key: (?Integer encoding_type) -> String
+
+    # Сгенерировать ключ.
+    def generate_key: (Integer algorithm_oid, Integer key_length, ?Integer export_flags) -> void
+
+    # Импортировать ключ.
+    def import_key: (String encoded_key, ?String password) -> void
+
+    # NOT IMPLEMENTED in C++:
+    # def legacy_plugin_symmetric_export: () -> bool
+    # def legacy_plugin_symmetric_export=: (bool) -> bool
+    # def set_mode: (Integer mode) -> void
+    # def set_padding: (Integer padding) -> void
+  end
+
+  # Возвращает версию модуля rucades.
+  def self.module_version: () -> String
 end

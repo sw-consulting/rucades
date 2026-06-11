@@ -11,10 +11,10 @@
 namespace rucades {
 class pre_rb_Attributes {
   protected:
-    boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPAttributesObject> m_pCppCadesImpl;
+    NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPAttributesObject> m_pCppCadesImpl;
   public:
     pre_rb_Attributes(void);
-    pre_rb_Attributes(boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPAttributesObject> other);
+    pre_rb_Attributes(NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPAttributesObject> other);
     void add(pre_rb_Attribute& attrb);
     void clear(void);
     long get_count(void);

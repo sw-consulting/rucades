@@ -13,14 +13,14 @@ using namespace CryptoPro::PKI::CAdES;
 
 namespace rucades {
 pre_rb_Signer::pre_rb_Signer(void):
-      m_pCppCadesImpl(boost::shared_ptr<CPPCadesCPSignerObject>(new CPPCadesCPSignerObject())) { }
+      m_pCppCadesImpl(NS_SHARED_PTR::shared_ptr<CPPCadesCPSignerObject>(new CPPCadesCPSignerObject())) { }
 
-pre_rb_Signer::pre_rb_Signer(boost::shared_ptr<CPPCadesCPSignerObject> other):
+pre_rb_Signer::pre_rb_Signer(NS_SHARED_PTR::shared_ptr<CPPCadesCPSignerObject> other):
         m_pCppCadesImpl(other) { }
 
 pre_rb_Certificate* pre_rb_Signer::get_certificate(void)
 {
-    boost::shared_ptr<CPPCadesCPCertificateObject> pCert = boost::shared_ptr<CPPCadesCPCertificateObject>(new CPPCadesCPCertificateObject());
+    NS_SHARED_PTR::shared_ptr<CPPCadesCPCertificateObject> pCert = NS_SHARED_PTR::shared_ptr<CPPCadesCPCertificateObject>(new CPPCadesCPCertificateObject());
     hr_method_check(m_pCppCadesImpl->get_Certificate(pCert));
     return new pre_rb_Certificate(pCert);
 }
@@ -29,7 +29,7 @@ void pre_rb_Signer::set_certificate(pre_rb_Certificate& cert)
 {
     CCertContext certContext;
     hr_method_check(cert.m_pCppCadesImpl->get_CertContext(certContext));
-    boost::shared_ptr<CPPCadesCPCertificateObject> pCPPCadesCPCert(new CPPCadesCPCertificateObject());
+    NS_SHARED_PTR::shared_ptr<CPPCadesCPCertificateObject> pCPPCadesCPCert(new CPPCadesCPCertificateObject());
     pCPPCadesCPCert->put_CertContext(certContext);
     hr_method_check(m_pCppCadesImpl->put_Certificate(pCPPCadesCPCert));
 }
@@ -71,7 +71,7 @@ void pre_rb_Signer::set_tsa_address(std::string addr)
 
 pre_rb_Attributes pre_rb_Signer::get_unauthenticated_attributes(void)
 {
-    boost::shared_ptr<CPPCadesCPAttributesObject> pAttrs = boost::shared_ptr<CPPCadesCPAttributesObject>(new CPPCadesCPAttributesObject());
+    NS_SHARED_PTR::shared_ptr<CPPCadesCPAttributesObject> pAttrs = NS_SHARED_PTR::shared_ptr<CPPCadesCPAttributesObject>(new CPPCadesCPAttributesObject());
     hr_method_check(m_pCppCadesImpl->get_UnauthenticatedAttributes(pAttrs));
     return pre_rb_Attributes(pAttrs);
 }
@@ -83,7 +83,7 @@ void pre_rb_Signer::set_unauthenticated_attributes(pre_rb_Attributes& attrb)
 
 pre_rb_Attributes pre_rb_Signer::get_authenticated_attributes(void)
 {
-    boost::shared_ptr<CPPCadesCPAttributesObject> pAttrs = boost::shared_ptr<CPPCadesCPAttributesObject>(new CPPCadesCPAttributesObject());
+    NS_SHARED_PTR::shared_ptr<CPPCadesCPAttributesObject> pAttrs = NS_SHARED_PTR::shared_ptr<CPPCadesCPAttributesObject>(new CPPCadesCPAttributesObject());
     hr_method_check(m_pCppCadesImpl->get_AuthenticatedAttributes(pAttrs));
     return pre_rb_Attributes(pAttrs);
 }
@@ -95,14 +95,14 @@ void pre_rb_Signer::set_authenticated_attributes(pre_rb_Attributes& attrb)
 
 pre_rb_Blobs pre_rb_Signer::get_crls(void)
 {
-    boost::shared_ptr<CPPCadesCPBlobsObject> pBlobs = boost::shared_ptr<CPPCadesCPBlobsObject>(new CPPCadesCPBlobsObject());
+    NS_SHARED_PTR::shared_ptr<CPPCadesCPBlobsObject> pBlobs = NS_SHARED_PTR::shared_ptr<CPPCadesCPBlobsObject>(new CPPCadesCPBlobsObject());
     hr_method_check(m_pCppCadesImpl->get_CRLs(pBlobs));
     return pre_rb_Blobs(pBlobs);
 }
 
 pre_rb_Blobs pre_rb_Signer::get_ocsp_responses(void)
 {
-    boost::shared_ptr<CPPCadesCPBlobsObject> pBlobs = boost::shared_ptr<CPPCadesCPBlobsObject>(new CPPCadesCPBlobsObject());
+    NS_SHARED_PTR::shared_ptr<CPPCadesCPBlobsObject> pBlobs = NS_SHARED_PTR::shared_ptr<CPPCadesCPBlobsObject>(new CPPCadesCPBlobsObject());
     hr_method_check(m_pCppCadesImpl->get_OCSPResponses(pBlobs));
     return pre_rb_Blobs(pBlobs);
 }

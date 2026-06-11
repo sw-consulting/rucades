@@ -14,7 +14,7 @@ using namespace CryptoPro::PKI::CAdES;
 namespace rucades {
 
 pre_rb_CRL::pre_rb_CRL(void):
-      m_pCppCadesImpl(boost::shared_ptr<CPPCadesCPCRLObject>(new CPPCadesCPCRLObject())) { }
+      m_pCppCadesImpl(NS_SHARED_PTR::shared_ptr<CPPCadesCPCRLObject>(new CPPCadesCPCRLObject())) { }
 
 std::string pre_rb_CRL::get_auth_key_id(void)
 {

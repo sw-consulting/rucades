@@ -13,9 +13,9 @@ using namespace CryptoPro::PKI::CAdES;
 
 namespace rucades {
 pre_rb_Version::pre_rb_Version(void):
-      m_pCppCadesImpl(boost::shared_ptr<CPPVersionObject>(new CPPVersionObject())) { }
+      m_pCppCadesImpl(NS_SHARED_PTR::shared_ptr<CPPVersionObject>(new CPPVersionObject())) { }
 
-pre_rb_Version::pre_rb_Version(boost::shared_ptr<CPPVersionObject> other):
+pre_rb_Version::pre_rb_Version(NS_SHARED_PTR::shared_ptr<CPPVersionObject> other):
       m_pCppCadesImpl(other) { }
 
 unsigned int pre_rb_Version::major_version(void)

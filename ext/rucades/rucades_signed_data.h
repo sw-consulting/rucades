@@ -14,7 +14,7 @@
 namespace rucades {
 class pre_rb_SignedData {
   protected:
-    boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesSignedDataObject> m_pCppCadesImpl;
+    NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesSignedDataObject> m_pCppCadesImpl;
   public:
     pre_rb_SignedData(void);
     long get_content_encoding(void);

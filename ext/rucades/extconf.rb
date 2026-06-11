@@ -8,15 +8,27 @@ require "mkmf-rice"
 require "fiddle"
 
 # rubocop:disable Style/GlobalVars
+PLATFROM_DARWIN = RUBY_PLATFORM =~ /darwin/
+PLATFORM_DARWIN_ARM64 = RUBY_PLATFORM =~ /arm64-darwin/
+PLATFORM_LINUX_ARM64 = RUBY_PLATFORM =~ /aarch64-linux/
+
+LIBDIR = PLATFROM_DARWIN ? "/Applications/CryptoPro_ECP.app/Contents/Resources" : "/opt/cprocsp"
+BOOSTDIR = if PLATFROM_DARWIN
+             PLATFORM_DARWIN_ARM64 ? "/opt/homebrew/include" : "/usr/local/include"
+           else
+             "/usr/include"
+           end
 
 INCDIRS = [
-  "/usr/include/boost",
+  "#{BOOSTDIR}/boost",
   "/opt/cprocsp/include",
   "/opt/cprocsp/include/cpcsp",
   "/opt/cprocsp/include/pki/atl",
-  "/opt/cprocsp/include/pki/cppcades",
-  "/opt/cprocsp/include/pki/cplib",
-  "/opt/cprocsp/include/pki"
+  "#{LIBDIR}/include/pki/cppcades",
+  "#{LIBDIR}/include/pki/cplib",
+  "/opt/cprocsp/include/pki",
+  "#{LIBDIR}/include/pki",
+  "#{__dir__}/cplib",
 ].freeze
 
 CXXDEFS = [
@@ -25,7 +37,8 @@ CXXDEFS = [
   " -Wno-narrowing",
   " -Wno-deprecated-declarations",
   " -Wno-write-strings",
-  " -DLEGACY_FORMAT_MESSAGE_IMPL"
+  " -DLEGACY_FORMAT_MESSAGE_IMPL",
+  " -D_LIBCPP_ENABLE_CXX17_REMOVED_AUTO_PTR"
 ].freeze
 
 ARM64_CXXDEFS = [
@@ -40,13 +53,17 @@ INCDIRS.each { |dir| $INCFLAGS << " -I#{dir}" }
 $defs << " -DSIZEOF_VOID_P=#{Fiddle::SIZEOF_VOIDP}"
 
 CXXDEFS.each { |df| $defs << df }
-ARM64_CXXDEFS.each { |df| $defs << df } if RUBY_PLATFORM =~ /aarch64-linux/
+ARM64_CXXDEFS.each { |df| $defs << df } if PLATFORM_LINUX_ARM64
+$defs << " -DDARWIN" if PLATFROM_DARWIN
 
-$DLDFLAGS << if RUBY_PLATFORM =~ /aarch64-linux/
-               " -L/opt/cprocsp/lib/aarch64"
-             else
-               " -L/opt/cprocsp/lib/amd64"
-             end
+if PLATFROM_DARWIN
+  $DLDFLAGS << " -L/Applications/CryptoPro_ECP.app/Contents/MacOS/lib"
+  $DLDFLAGS << " -Wl,-rpath,/Applications/CryptoPro_ECP.app/Contents/MacOS/lib"
+elsif PLATFORM_LINUX_ARM64
+  $DLDFLAGS << " -L/opt/cprocsp/lib/aarch64"
+else
+  $DLDFLAGS << " -L/opt/cprocsp/lib/amd64"
+end
 
 $LOCAL_LIBS << " -lcppcades"
 
@@ -54,7 +71,6 @@ $srcs = [
   "rucades.cpp",
   "rucades_const.cpp",
   "rucades_tools.cpp",
-  "errormsg.cpp",
   "rucades_about.cpp",
   "rucades_algorithm.cpp",
   "rucades_attribute.cpp",

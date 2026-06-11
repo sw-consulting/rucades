@@ -10,10 +10,10 @@
 namespace rucades {
 class pre_rb_BasicConstraints {
   protected:
-    boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPBasicConstraintsObject> m_pCppCadesImpl;
+    NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPBasicConstraintsObject> m_pCppCadesImpl;
   public:
     pre_rb_BasicConstraints(void);
-    pre_rb_BasicConstraints(boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPBasicConstraintsObject> other);
+    pre_rb_BasicConstraints(NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPBasicConstraintsObject> other);
     bool is_ceritficate_authority(void);
     bool is_critical(void);
     bool is_path_len_constraint_present(void);

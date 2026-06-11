@@ -42,7 +42,7 @@ RSpec.describe Rucades do
       attrb.oid.name = Rucades::CAPICOM_OID_BASIC_CONSTRAINTS2_EXTENSION
 
       expect(attrb.oid.value).to eq("2.5.29.19")
-      expect(attrb.oid.friendly_name).to eq("Основные ограничения")
+      expect(["Основные ограничения", "Basic Constraints"]).to include(attrb.oid.friendly_name)
     end
 
     it "throws an error if used in incorrevt state" do

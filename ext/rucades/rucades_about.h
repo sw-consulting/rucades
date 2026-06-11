@@ -11,7 +11,7 @@
 namespace rucades {
 class pre_rb_About {
   protected:
-    boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesAboutObject> m_pCppCadesImpl;
+    NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesAboutObject> m_pCppCadesImpl;
   public:
     pre_rb_About(void);
     unsigned int major_version(void);

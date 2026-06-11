@@ -13,7 +13,7 @@ using namespace CryptoPro::PKI::CAdES;
 
 namespace rucades {
 pre_rb_SignedXML::pre_rb_SignedXML(void):
-    m_pCppCadesImpl(boost::shared_ptr<CPPCadesSignedXMLObject>(new CPPCadesSignedXMLObject())) { }
+    m_pCppCadesImpl(NS_SHARED_PTR::shared_ptr<CPPCadesSignedXMLObject>(new CPPCadesSignedXMLObject())) { }
 
 std::string pre_rb_SignedXML::get_content(void)
 {
@@ -48,7 +48,7 @@ void pre_rb_SignedXML::set_signature_method(std::string method)
 
 pre_rb_Signers pre_rb_SignedXML::get_signers(void)
 {
-    boost::shared_ptr<CPPCadesCPSignersObject> pSigners = boost::shared_ptr<CPPCadesCPSignersObject>(new CPPCadesCPSignersObject());
+    NS_SHARED_PTR::shared_ptr<CPPCadesCPSignersObject> pSigners = NS_SHARED_PTR::shared_ptr<CPPCadesCPSignersObject>(new CPPCadesCPSignersObject());
     hr_method_check(m_pCppCadesImpl->get_Signers(pSigners));
     return pre_rb_Signers(pSigners);
 }

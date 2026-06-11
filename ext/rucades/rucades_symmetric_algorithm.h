@@ -11,10 +11,10 @@
 namespace rucades {
 class pre_rb_SymmetricAlgorithm {
   protected:
-    boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesSymmetricAlgorithmObject> m_pCppCadesImpl;
+    NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesSymmetricAlgorithmObject> m_pCppCadesImpl;
   public:
     pre_rb_SymmetricAlgorithm(void);
-    pre_rb_SymmetricAlgorithm(boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesSymmetricAlgorithmObject> other);
+    pre_rb_SymmetricAlgorithm(NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesSymmetricAlgorithmObject> other);
     std::string get_divers_data(void);
     void set_divers_data(std::string data);
     std::string get_iv(void);

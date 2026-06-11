@@ -13,9 +13,9 @@ using namespace CryptoPro::PKI::CAdES;
 
 namespace rucades {
 pre_rb_BasicConstraints::pre_rb_BasicConstraints(void):
-      m_pCppCadesImpl(boost::shared_ptr<CPPCadesCPBasicConstraintsObject>(new CPPCadesCPBasicConstraintsObject())) { }
+      m_pCppCadesImpl(NS_SHARED_PTR::shared_ptr<CPPCadesCPBasicConstraintsObject>(new CPPCadesCPBasicConstraintsObject())) { }
 
-pre_rb_BasicConstraints::pre_rb_BasicConstraints(boost::shared_ptr<CPPCadesCPBasicConstraintsObject> other):
+pre_rb_BasicConstraints::pre_rb_BasicConstraints(NS_SHARED_PTR::shared_ptr<CPPCadesCPBasicConstraintsObject> other):
       m_pCppCadesImpl(other) { }
 
 bool pre_rb_BasicConstraints::is_ceritficate_authority(void)
@@ -58,7 +58,7 @@ void pre_rb_BasicConstraints::define_ruby_class(VALUE module)
     Data_Type<pre_rb_BasicConstraints> rb_cBasicConstraints =
         define_class_under<pre_rb_BasicConstraints>(module, "BasicConstraints")
         .define_constructor(Constructor<pre_rb_BasicConstraints>())
-        .define_method("ceritficate_authority?", &pre_rb_BasicConstraints::is_ceritficate_authority)
+        .define_method("certificate_authority?", &pre_rb_BasicConstraints::is_ceritficate_authority)
         .define_method("critical?", &pre_rb_BasicConstraints::is_critical)
         .define_method("pathlen_constraint_present?", &pre_rb_BasicConstraints::is_path_len_constraint_present)
         .define_method("present?", &pre_rb_BasicConstraints::is_present)

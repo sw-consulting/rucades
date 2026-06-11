@@ -12,10 +12,10 @@
 namespace rucades {
 class pre_rb_PublicKey {
   protected:
-    boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPPublicKeyObject> m_pCppCadesImpl;
+    NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPPublicKeyObject> m_pCppCadesImpl;
   public:
     pre_rb_PublicKey(void);
-    pre_rb_PublicKey(boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPPublicKeyObject> other);
+    pre_rb_PublicKey(NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPPublicKeyObject> other);
     pre_rb_OID* get_algorithm(void);
     pre_rb_EncodedData get_encoded_key(void);
     pre_rb_EncodedData get_encoded_parameters(void);

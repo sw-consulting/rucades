@@ -10,7 +10,7 @@
 namespace rucades {
 class pre_rb_EncodedData {
   protected:
-    boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPEncodedDataObject> m_pCppCadesImpl;
+    NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPEncodedDataObject> m_pCppCadesImpl;
   public:
     pre_rb_EncodedData(void);
     std::string value(long format);

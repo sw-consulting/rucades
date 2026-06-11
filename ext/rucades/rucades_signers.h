@@ -12,10 +12,10 @@
 namespace rucades {
 class pre_rb_Signers {
   protected:
-    boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPSignersObject> m_pCppCadesImpl;
+    NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPSignersObject> m_pCppCadesImpl;
   public:
     pre_rb_Signers(void);
-    pre_rb_Signers(boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPSignersObject> other);
+    pre_rb_Signers(NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPSignersObject> other);
     void add(pre_rb_Signers& signer);
     long get_count(void);
     pre_rb_Signer get_item(long index);

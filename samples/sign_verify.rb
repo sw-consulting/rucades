@@ -9,20 +9,17 @@ certs = store.certificates
 
 raise "Certificates with private key not found" unless certs.any?
 
-# hashed_data = Rucades::HashedData.new
+signer = Rucades::Signer.new
+signer.certificate = certs[1]
+signer.check_certificate = true
 
-enveloped_data = Rucades::EnvelopedData.new
-enveloped_data.content = "Message to encrypt с русскими буквами"
-enveloped_data.recipients.add(certs[1])
-encrypted_message = enveloped_data.encrypt(Rucades::CADESCOM_ENCODE_BASE64)
-puts "============= Encrypted Message ============="
-puts encrypted_message
-puts "============================================="
+signed_data = Rucades::SignedData.new
+signed_data.content = "Test content to be signed"
+signature = signed_data.sign_cades(signer, Rucades::CADESCOM_CADES_BES)
+puts "============= Signature ============="
+puts signature
+puts "====================================="
 
-enveloped_data_dec = Rucades::EnvelopedData.new
-enveloped_data_dec.decrypt(encrypted_message)
-content = enveloped_data_dec.content
-
-raise "Incorrect value of EnvelopedData.decrypt result" unless content == "Message to encrypt с русскими буквами"
-
-puts "=========== Decrypted successfully =========="
+signed_data2 = Rucades::SignedData.new
+signed_data2.verify_cades(signature, Rucades::CADESCOM_CADES_BES)
+puts "******* Verified successfully ******"

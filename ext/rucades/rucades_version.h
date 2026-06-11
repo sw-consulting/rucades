@@ -10,10 +10,10 @@
 namespace rucades {
 class pre_rb_Version {
   protected:
-    boost::shared_ptr<CryptoPro::PKI::CAdES::CPPVersionObject> m_pCppCadesImpl;
+    NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPVersionObject> m_pCppCadesImpl;
   public:
     pre_rb_Version(void);
-    pre_rb_Version(boost::shared_ptr<CryptoPro::PKI::CAdES::CPPVersionObject> other);
+    pre_rb_Version(NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPVersionObject> other);
     unsigned int major_version(void);
     unsigned int minor_version(void);
     unsigned int build_version(void);

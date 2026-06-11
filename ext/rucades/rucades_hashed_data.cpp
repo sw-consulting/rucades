@@ -13,7 +13,7 @@ using namespace CryptoPro::PKI::CAdES;
 
 namespace rucades {
 pre_rb_HashedData::pre_rb_HashedData(void)
-      : m_pCppCadesImpl(boost::shared_ptr<CPPCadesCPHashedDataObject>(new CPPCadesCPHashedDataObject())) { }
+      : m_pCppCadesImpl(NS_SHARED_PTR::shared_ptr<CPPCadesCPHashedDataObject>(new CPPCadesCPHashedDataObject())) { }
 
 std::string pre_rb_HashedData::get_key(void)
 {

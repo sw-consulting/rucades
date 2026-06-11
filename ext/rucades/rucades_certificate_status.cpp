@@ -13,9 +13,9 @@ using namespace CryptoPro::PKI::CAdES;
 
 namespace rucades {
 pre_rb_CertificateStatus::pre_rb_CertificateStatus(void):
-      m_pCppCadesImpl(boost::shared_ptr<CPPCadesCPCertificateStatusObject>(new CPPCadesCPCertificateStatusObject())) { }
+      m_pCppCadesImpl(NS_SHARED_PTR::shared_ptr<CPPCadesCPCertificateStatusObject>(new CPPCadesCPCertificateStatusObject())) { }
 
-pre_rb_CertificateStatus::pre_rb_CertificateStatus(boost::shared_ptr<CPPCadesCPCertificateStatusObject> other):
+pre_rb_CertificateStatus::pre_rb_CertificateStatus(NS_SHARED_PTR::shared_ptr<CPPCadesCPCertificateStatusObject> other):
       m_pCppCadesImpl(other) { }
 
 bool pre_rb_CertificateStatus::result(void)

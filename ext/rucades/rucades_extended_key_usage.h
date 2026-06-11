@@ -12,10 +12,10 @@
 namespace rucades {
 class pre_rb_ExtendedKeyUsage {
   protected:
-    boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPExtendedKeyUsageObject> m_pCppCadesImpl;
+    NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPExtendedKeyUsageObject> m_pCppCadesImpl;
   public:
     pre_rb_ExtendedKeyUsage(void);
-    pre_rb_ExtendedKeyUsage(boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPExtendedKeyUsageObject> other);
+    pre_rb_ExtendedKeyUsage(NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPExtendedKeyUsageObject> other);
     bool is_present(void);
     bool is_critical(void);
     pre_rb_EKUs get_ekus(void);

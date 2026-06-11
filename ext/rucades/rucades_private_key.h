@@ -11,10 +11,10 @@ namespace rucades {
 
 class pre_rb_PrivateKey {
   protected:
-    boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPPrivateKeyObject> m_pCppCadesImpl;
+    NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPPrivateKeyObject> m_pCppCadesImpl;
   public:
     pre_rb_PrivateKey(void);
-    pre_rb_PrivateKey(boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPPrivateKeyObject> other);
+    pre_rb_PrivateKey(NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPPrivateKeyObject> other);
     std::string get_container_name(void);
     std::string get_unique_container_name(void);
     std::string get_provider_name(void);

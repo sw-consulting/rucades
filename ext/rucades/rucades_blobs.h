@@ -10,10 +10,10 @@
 namespace rucades {
 class pre_rb_Blobs {
   protected:
-    boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPBlobsObject> m_pCppCadesImpl;
+    NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPBlobsObject> m_pCppCadesImpl;
   public:
     pre_rb_Blobs(void);
-    pre_rb_Blobs(boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPBlobsObject> other);
+    pre_rb_Blobs(NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPBlobsObject> other);
     long get_count(void);
     std::string get_item(long index);
 

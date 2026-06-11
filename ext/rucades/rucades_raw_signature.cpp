@@ -13,9 +13,9 @@ using namespace CryptoPro::PKI::CAdES;
 
 namespace rucades {
 pre_rb_RawSignature::pre_rb_RawSignature(void):
-    m_pCppCadesImpl(boost::shared_ptr<CPPCadesRawSignatureObject>(new CPPCadesRawSignatureObject())) { }
+    m_pCppCadesImpl(NS_SHARED_PTR::shared_ptr<CPPCadesRawSignatureObject>(new CPPCadesRawSignatureObject())) { }
 
-pre_rb_RawSignature::pre_rb_RawSignature(boost::shared_ptr<CPPCadesRawSignatureObject> other):
+pre_rb_RawSignature::pre_rb_RawSignature(NS_SHARED_PTR::shared_ptr<CPPCadesRawSignatureObject> other):
     m_pCppCadesImpl(other) { }
 
 std::string pre_rb_RawSignature::sign_hash(pre_rb_HashedData& data, pre_rb_Certificate& cert)

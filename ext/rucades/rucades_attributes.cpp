@@ -13,9 +13,9 @@ using namespace CryptoPro::PKI::CAdES;
 
 namespace rucades {
 pre_rb_Attributes::pre_rb_Attributes(void):
-      m_pCppCadesImpl(boost::shared_ptr<CPPCadesCPAttributesObject>(new CPPCadesCPAttributesObject())) { }
+      m_pCppCadesImpl(NS_SHARED_PTR::shared_ptr<CPPCadesCPAttributesObject>(new CPPCadesCPAttributesObject())) { }
 
-pre_rb_Attributes::pre_rb_Attributes(boost::shared_ptr<CPPCadesCPAttributesObject> other):
+pre_rb_Attributes::pre_rb_Attributes(NS_SHARED_PTR::shared_ptr<CPPCadesCPAttributesObject> other):
       m_pCppCadesImpl(other) { }
 
 void pre_rb_Attributes::add(pre_rb_Attribute& attrb)

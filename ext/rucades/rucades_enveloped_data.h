@@ -12,7 +12,7 @@
 namespace rucades {
 class pre_rb_EnvelopedData {
   protected:
-    boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPEnvelopedDataObject> m_pCppCadesImpl;
+    NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPEnvelopedDataObject> m_pCppCadesImpl;
   public:
     pre_rb_EnvelopedData(void);
 

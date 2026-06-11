@@ -14,9 +14,9 @@ using namespace CryptoPro::PKI::CAdES;
 
 namespace rucades {
 pre_rb_Signers::pre_rb_Signers(void):
-      m_pCppCadesImpl(boost::shared_ptr<CPPCadesCPSignersObject>(new CPPCadesCPSignersObject())) { }
+      m_pCppCadesImpl(NS_SHARED_PTR::shared_ptr<CPPCadesCPSignersObject>(new CPPCadesCPSignersObject())) { }
 
-pre_rb_Signers::pre_rb_Signers(boost::shared_ptr<CPPCadesCPSignersObject> other):
+pre_rb_Signers::pre_rb_Signers(NS_SHARED_PTR::shared_ptr<CPPCadesCPSignersObject> other):
       m_pCppCadesImpl(other) { }
 
 long pre_rb_Signers::get_count(void){

@@ -13,10 +13,10 @@ namespace rucades {
 
 class pre_rb_RawSignature {
   protected:
-    boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesRawSignatureObject> m_pCppCadesImpl;
+    NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesRawSignatureObject> m_pCppCadesImpl;
   public:
     pre_rb_RawSignature(void);
-    pre_rb_RawSignature(boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesRawSignatureObject> other);
+    pre_rb_RawSignature(NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesRawSignatureObject> other);
     std::string sign_hash(pre_rb_HashedData& data, pre_rb_Certificate& cert);
     void verify_hash(pre_rb_HashedData& data, pre_rb_Certificate& cert, std::string signature);
 

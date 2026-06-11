@@ -14,9 +14,9 @@ using namespace CryptoPro::PKI::CAdES;
 
 namespace rucades {
 pre_rb_Blobs::pre_rb_Blobs(void):
-      m_pCppCadesImpl(boost::shared_ptr<CPPCadesCPBlobsObject>(new CPPCadesCPBlobsObject())) { }
+      m_pCppCadesImpl(NS_SHARED_PTR::shared_ptr<CPPCadesCPBlobsObject>(new CPPCadesCPBlobsObject())) { }
 
-pre_rb_Blobs::pre_rb_Blobs(boost::shared_ptr<CPPCadesCPBlobsObject> other):
+pre_rb_Blobs::pre_rb_Blobs(NS_SHARED_PTR::shared_ptr<CPPCadesCPBlobsObject> other):
         m_pCppCadesImpl(other) { }
 
 long pre_rb_Blobs::get_count(void){
@@ -27,7 +27,7 @@ long pre_rb_Blobs::get_count(void){
 
 std::string pre_rb_Blobs::get_item(long index)
 {
-    boost::shared_ptr<CBlob> pEncValueBlob = boost::shared_ptr<CBlob>(new CBlob());
+    NS_SHARED_PTR::shared_ptr<CBlob> pEncValueBlob = NS_SHARED_PTR::shared_ptr<CBlob>(new CBlob());
     hr_method_check(m_pCppCadesImpl->get_Item(index, pEncValueBlob));
 
     CAtlString sValue;

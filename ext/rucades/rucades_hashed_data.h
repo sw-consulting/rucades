@@ -10,7 +10,7 @@
 namespace rucades {
 class pre_rb_HashedData {
   protected:
-    boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPHashedDataObject> m_pCppCadesImpl;
+    NS_SHARED_PTR::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPHashedDataObject> m_pCppCadesImpl;
   public:
     pre_rb_HashedData(void);
     std::string get_key(void);
