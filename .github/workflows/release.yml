@@ -183,7 +183,10 @@ jobs:
 
       - name: Install packages (macOS)
         if: runner.os == 'macOS'
-        run: brew install boost cmake
+        run: |
+          brew trust --tap aws/tap || true
+          brew trust --tap azure/bicep || true
+          brew install boost cmake
 
       - name: Install CSP and SDK (Linux)
         if: runner.os == 'Linux'
