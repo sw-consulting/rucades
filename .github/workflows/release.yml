@@ -30,6 +30,8 @@ concurrency:
 
 jobs:
   release:
+    outputs:
+      version: ${{ steps.version.outputs.version }}
     if: >-
       github.event_name == 'workflow_dispatch' ||
       (github.event.pull_request.merged == true &&
@@ -158,3 +160,85 @@ jobs:
           set -euo pipefail
           git push origin main
           git push origin "v${VERSION}"
+
+  test-published-gem:
+    needs: release
+    runs-on: ${{ matrix.os }}
+    name: Test gem on ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-22.04]
+
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+
+      - name: Install packages (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt -y update
+          sudo apt -y install cmake build-essential libboost-dev unzip wget
+
+      - name: Install packages (macOS)
+        if: runner.os == 'macOS'
+        run: brew install boost cmake
+
+      - name: Install CSP and SDK (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          pushd sdk
+          tar xvf linux-amd64_deb.tgz
+          pushd linux-amd64_deb
+          sudo ./install.sh
+          sudo apt install ./lsb-cprocsp-devel_5.0*.deb
+          popd
+          tar xvf cades-linux-amd64.tar.gz
+          pushd cades-linux-amd64
+          sudo apt install ./cprocsp-pki-cades*.deb
+          popd
+          popd
+
+      - name: Install CSP and SDK (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          pushd sdk
+          sudo installer -pkg macos-cprocsp.pkg -target /
+          popd
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4'
+
+      - name: Wait for gem propagation and install
+        env:
+          VERSION: ${{ needs.release.outputs.version }}
+        run: |
+          set -euo pipefail
+          echo "Installing rucades v${VERSION} from RubyGems..."
+          for i in $(seq 1 20); do
+            if gem install rucades -v "${VERSION}" --no-document; then
+              echo "Gem installed successfully on attempt ${i}"
+              break
+            fi
+            if [ "${i}" -eq 20 ]; then
+              echo "Failed to install gem after 20 attempts" >&2
+              exit 1
+            fi
+            echo "Attempt ${i} failed, retrying in 30s..."
+            sleep 30
+          done
+
+      - name: Verify gem loads and check version
+        env:
+          VERSION: ${{ needs.release.outputs.version }}
+        run: |
+          ruby -e '
+            require "rucades"
+            sdk_version = Rucades::About.new.version.to_s
+            puts "CADES SDK version: #{sdk_version}"
+            gem_version = Gem.loaded_specs["rucades"]&.version&.to_s || ENV.fetch("VERSION")
+            puts "rucades gem version: #{gem_version}"
+          '
