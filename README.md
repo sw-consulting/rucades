@@ -20,22 +20,43 @@ Gem тестировался в следующем окружении:
 
 ## Установка
 
-### Вариант 1: установка опубликованного Gem из RubyGems.org
+### Зависимости
 
-* Установите пакеты для сборки
-```
-    sudo apt update
-    sudo apt install cmake build-essential libboost-all-dev ruby-dev tar git wget libffi-dev
-    sudo gem install bundler
-```
-* Установите КриптоПро CSP и ЭЦП SDK, как описано в Варианте 2 ниже (начиная с шага «Скачайте архив с КриптоПро CSP»).
+Перед установкой Gem подготовьте зависимости без привязки к конкретному дистрибутиву или пакетному менеджеру:
 
-* Установите Gem напрямую из RubyGems.org:
+* Ruby и Bundler для Вашей платформы.
+* Средства сборки C/C++ расширений Ruby для Вашей платформы.
+* [CMake](https://cmake.org/) — необходим для сборки native extension.
+* [Boost](https://www.boost.org/) — требуется при использовании КриптоПро ЭЦП SDK версии ниже 2.0.15700; начиная с версии 2.0.15700 Boost устанавливать отдельно не нужно.
+* [КриптоПро CSP](https://cryptopro.ru/products/csp/downloads) и пакет разработки CSP (`cprocsp-devel` или аналогичный пакет для Вашей платформы).
+* [КриптоПро ЭЦП SDK](https://cryptopro.ru/products/cades/downloads) с пакетом CAdES (`cprocsp-pki-cades` или аналогичный пакет для Вашей платформы), версия не ниже 2.0.14071.
+
+Используйте официальные инструкции КриптоПро для выбранной операционной системы и архитектуры:
+
+* [документация КриптоПро CSP](https://docs.cryptopro.ru/csp) описывает установку и особенности CSP на поддерживаемых платформах;
+* [страница загрузки КриптоПро CSP](https://cryptopro.ru/products/csp/downloads) содержит дистрибутивы для разных платформ и архитектур;
+* [документация КриптоПро ЭЦП SDK](https://docs.cryptopro.ru/cades/usage) описывает использование и требования SDK;
+* [страница загрузки КриптоПро ЭЦП SDK](https://cryptopro.ru/products/cades/downloads) содержит актуальные пакеты SDK.
+
+Начиная с КриптоПро CSP 5.0 R3, пакеты CAdES/SDK поставляются в составе основного дистрибутива CSP. Для более ранних версий CSP может потребоваться отдельная установка архива КриптоПро ЭЦП SDK.
+
+### Установка опубликованного Gem из RubyGems.org
+
+Добавьте Gem в Gemfile Вашего проекта:
 ```
-    gem install rucades
+gem 'rucades'
 ```
 
-* Проверка установки
+Затем выполните установку зависимостей проекта обычным для Bundler способом.
+
+Для установки без Gemfile можно использовать опубликованный пакет RubyGems.org:
+```
+gem install rucades
+```
+
+Компиляция расширения может занять 10-15 минут. Во время компиляции Ruby может не выводить сообщений.
+
+### Проверка установки
 
 Скрипт _test.rb_
 ```
@@ -52,78 +73,16 @@ ruby test.rb
 CADES SDK version: 2.0.14892
 ```
 
-### Вариант 2: установка из исходного кода через Gemfile
+### Установка из исходного кода репозитория
 
-* Установите пакеты  для сборки
-```
-    sudo apt update
-    sudo apt install cmake build-essential libboost-all-dev ruby-dev tar git wget libffi-dev
-    sudo gem install bundler
-```
-* Скачайте архив с [КриптоПро CSP](https://cryptopro.ru/products/csp/downloads) для Вашей архитектуры, распакуйте его и установите КриптоПро CSP
-  Например,
+Этот вариант нужен только для установки unreleased-версии из репозитория.
 
-_для amd64_
-```
-    wget -O  linux-arm64_deb.tgz https://cryptopro.ru/sites/default/files/private/csp/50/11455/linux-arm64_deb.tgz
-    tar xvf linux-arm64_deb.tgz
-    cd linux-arm64_deb
-    sudo ./install.sh
-```
-
-_для arm64_
-```
-    wget -O  linux-arm64_deb.tgz https://cryptopro.ru/sites/default/files/private/csp/50/11455/linux-arm64_deb.tgz
-    tar xvf linux-arm64_deb.tgz
-    cd linux-arm64_deb
-    sudo ./install.sh
-```
-* Установите пакет cprocsp-devel
-```
-sudo apt install ./lsb-cprocsp-devel_5.0*.deb
-```
-* Скачайте архив с [КриптоПро ЭЦП SDK](https://cryptopro.ru/products/cades/downloads), распакуйте его и установите пакет cprocsp-pki-cades (версия не ниже 2.0.14071)
-
-_для amd64_
-```
-   tar xvf cades-linux-amd64.tar.gz
-   cd cades-linux-amd64
-   sudo apt install ./cprocsp-pki-cades*.deb
-```
-
-_для arm64_
-```
-   tar xvf cades-linux-arm64.tar.gz
-   cd cades-linux-arm64
-   sudo apt install ./cprocsp-pki-cades*.deb
-```
-* Добавьте в Gemfile Вашего проекта следующую строку:
+Добавьте в Gemfile Вашего проекта следующую строку:
 ```
 gem 'rucades', git: 'https://github.com/maxirmx/rucades'
 ```
 
-* Выполните
-```
-bundle install
-```
-!!! Компиляция расширения может занять 10-15 минут. Во время компиляции Ruby не выводит никаких сообщений. !!!
-
-* Проверка установки
-
-Скрипт _test.rb_
-```
-require 'rucades'
-puts "CADES SDK version: #{Rucades::About.new.version.to_s}"
-```
-Запуск
-```
-bundle exec ruby test.rb
-```
-
-Ожидаемый результат (или что-то похожее)
-```
-CADES SDK version: 2.0.14892
-```
+Затем выполните установку зависимостей проекта обычным для Bundler способом.
 
 ## Использование
 
