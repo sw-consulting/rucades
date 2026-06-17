@@ -42,16 +42,19 @@ std::string pre_rb_Attribute::get_value(void)
     }
     else
     {
-        FILETIME fTime;
+        FILETIME fTime = {0};
         DWORD fTimeSize = sizeof(FILETIME);
-        CryptStringToBinary(reinterpret_cast<TCHAR *>(blobValue.pbData()), dwLen,
-                            CRYPT_STRING_BASE64, &vbValue[0], &dwLen, NULL, NULL);
-        CryptDecodeObject(X509_ASN_ENCODING | PKCS_7_ASN_ENCODING,
-                          (LPCSTR)szOID_RSA_signingTime, &vbValue[0], dwLen, 0, &fTime,
-                          &fTimeSize);
-        CryptoPro::CDateTime Time(fTime);
-        CryptoPro::CStringProxy strProxyTime = Time.tostring();
-        return std::string(strProxyTime.c_str());
+        if (CryptStringToBinary(reinterpret_cast<TCHAR *>(blobValue.pbData()), dwLen,
+                                CRYPT_STRING_BASE64, &vbValue[0], &dwLen, NULL, NULL) &&
+            CryptDecodeObject(X509_ASN_ENCODING | PKCS_7_ASN_ENCODING,
+                              (LPCSTR)szOID_RSA_signingTime, &vbValue[0], dwLen, 0, &fTime,
+                              &fTimeSize))
+        {
+            CryptoPro::CDateTime Time(fTime);
+            CryptoPro::CStringProxy strProxyTime = Time.tostring();
+            return std::string(strProxyTime.c_str());
+        }
+throw std::runtime_error("Failed to decode signing time attribute");
     }
     return reinterpret_cast<TCHAR *>(vbValue.data());
 }
