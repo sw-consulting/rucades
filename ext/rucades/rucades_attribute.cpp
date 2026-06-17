@@ -54,7 +54,7 @@ std::string pre_rb_Attribute::get_value(void)
             CryptoPro::CStringProxy strProxyTime = Time.tostring();
             return std::string(strProxyTime.c_str());
         }
-        return std::string("");
+throw std::runtime_error("Failed to decode signing time attribute");
     }
     return reinterpret_cast<TCHAR *>(vbValue.data());
 }
