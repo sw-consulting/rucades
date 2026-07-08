@@ -265,7 +265,7 @@ module Rucades
     def name=: (Integer) -> Integer
 
     # Возвращает закодированное значение атрибута.
-    def value: (?Integer encoding) -> String
+    def value: () -> String
     def value=: (String) -> String
 
     # Способ кодирования значения атрибута.
@@ -514,7 +514,7 @@ module Rucades
 
   # CAdESCOM.Certificates
   # Описывает коллекцию сертификатов.
-  # Реализованы методы find, [], count.
+  # Реализованы методы find, [], count, any?.
   class Certificates
     # Возвращает количество объектов в коллекции сертификатов.
     def count: () -> Integer
@@ -522,11 +522,14 @@ module Rucades
     # Возвращает сертификат с заданным индексом из коллекции.
     def []: (Integer index) -> Certificate
 
+    # Есть ли в коллекции хотя бы один сертификат.
+    def any?: () -> bool
+
     # Возвращает коллекцию сертификатов, удовлетворяющих заданному критерию.
     # find_type — CAPICOM_CERTIFICATE_FIND_TYPE
     # criteria — данные для поиска; время передаётся в виде "YYYYMMDDhhmmss.ddddddZ"
     # valid_only — возвращать только валидные сертификаты
-    def find: (Integer find_type, ?Integer | String criteria, ?Integer valid_only) -> Certificates
+    def find: (Integer find_type, ?(Integer | String) criteria, ?(bool | Integer) valid_only) -> Certificates
   end
 
   # CAdESCOM.CertificateStatus
@@ -647,16 +650,16 @@ module Rucades
 
     # Добавить подпись (соподписание) в существующее сообщение.
     def cosign: (?Signer signer, ?Integer cades_type) -> String
-    def cosign_cades: (?Signer signer, ?Integer cades_type, ?bool detached) -> String
-    def cosign_hash: (HashedData hashed_data, ?Signer signer, ?Integer cades_type) -> String
+    def cosign_cades: (?Signer signer, ?Integer cades_type, ?Integer encoding_type) -> String
+    def cosign_hash: (HashedData hashed_data, ?Signer signer, ?Integer cades_type, ?Integer encoding_type) -> String
 
     # Улучшить подпись CAdES-BES до CAdES-T или CAdES-X Long Type 1.
-    def enhance_cades: (String signed_message, String tsa_address, ?Integer cades_type) -> String
+    def enhance_cades: (Integer cades_type, String tsa_address, ?Integer encoding_type) -> String
 
     # Подписать данные.
     def sign: (?Signer signer, ?bool detached, ?Integer encoding_type) -> String
     def sign_cades: (?Signer signer, ?Integer cades_type, ?bool detached, ?Integer encoding_type) -> String
-    def sign_hash: (HashedData hashed_data, ?Signer signer, ?Integer cades_type) -> String
+    def sign_hash: (HashedData hashed_data, ?Signer signer, ?Integer cades_type, ?Integer encoding_type) -> String
 
     # Проверить подпись.
     def verify: (String signed_message, ?bool detached, ?Integer verify_flag) -> void
@@ -684,10 +687,10 @@ module Rucades
     def signers: () -> Signers
 
     # Подписать XML.
-    def sign: (?Signer signer) -> String
+    def sign: (?Signer signer, ?String xpath) -> String
 
     # Проверить XML-подпись.
-    def verify: (String signed_xml) -> void
+    def verify: (String signed_xml, ?String xpath) -> void
 
     # NOT IMPLEMENTED in C++ (write-only properties):
     # def digest_method: () -> String
@@ -727,7 +730,7 @@ module Rucades
     def sign_hash: (HashedData hashed_data, Certificate certificate) -> String
 
     # Проверить подпись хэша.
-    def verify_hash: (HashedData hashed_data, String signature, Certificate certificate) -> void
+    def verify_hash: (HashedData hashed_data, Certificate certificate, String signature) -> void
   end
 
   class EnvelopedData
@@ -753,8 +756,8 @@ module Rucades
     # Зашифровать данные.
     def encrypt: (?Integer encoding_type) -> String
 
-    def stream_decrypt: (String encoded_message) -> void
-    def stream_encrypt: (?Integer encoding_type) -> String
+    def stream_decrypt: (String content, ?Integer final) -> String
+    def stream_encrypt: (String content, ?Integer final) -> String
   end
 
   # Коллекция получателей зашифрованного сообщения.
@@ -809,7 +812,7 @@ module Rucades
     # location — CADESCOM_STORE_LOCATION или CAPICOM_STORE_LOCATION
     # name — имя хранилища (CAPICOM_MY_STORE и т.д.)
     # mode — режим открытия (CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED и т.д.)
-    def open: (Integer location, String | Integer name, Integer mode) -> void
+    def open: (Integer location, String name, Integer mode) -> void
   end
 
   class SymmetricAlgorithm
@@ -827,19 +830,19 @@ module Rucades
     def decrypt: (String encoded_message, ?bool final) -> String
 
     # Диверсифицировать ключ.
-    def diversify_key: (String divers_data) -> void
+    def diversify_key: () -> SymmetricAlgorithm
 
     # Зашифровать данные.
     def encrypt: (String data, ?bool final) -> String
 
     # Экспортировать ключ.
-    def export_key: (?Integer encoding_type) -> String
+    def export_key: (Certificate certificate) -> String
 
     # Сгенерировать ключ.
-    def generate_key: (Integer algorithm_oid, Integer key_length, ?Integer export_flags) -> void
+    def generate_key: (Integer algorithm_oid) -> void
 
     # Импортировать ключ.
-    def import_key: (String encoded_key, ?String password) -> void
+    def import_key: (String encoded_key, Certificate certificate, ?String password) -> void
 
     # NOT IMPLEMENTED in C++:
     # def legacy_plugin_symmetric_export: () -> bool
