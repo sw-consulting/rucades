@@ -15,10 +15,13 @@ module Rucades
     def find(type, *args)
       return find_no_query(type) if args.empty?
 
-      valid_only = (args.length == 1 ? 0 : -1)
-      return internal_find_query_string(type, args[1], valid_only) if args[1].is_a?(String)
+      criteria = args[0]
+      # CAPICOM's bFindValidOnly is a boolean (default false). Coerce to a real boolean so
+      # nil/0/false all mean "false" — Rice maps any other Ruby value (incl. Integer 0) to true.
+      valid_only = ![ nil, false, 0 ].include?(args[1])
+      return internal_find_query_string(type, criteria, valid_only) if criteria.is_a?(String)
 
-      internal_find_query_long(type, args[1], valid_only)
+      internal_find_query_long(type, criteria, valid_only)
     end
 
     private
@@ -30,7 +33,7 @@ module Rucades
         raise ArgumentError, "Missing query"
       end
 
-      internal_find_query_string(type, "", 0)
+      internal_find_query_string(type, "", false)
     end
   end
 end
