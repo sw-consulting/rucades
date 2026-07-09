@@ -654,7 +654,7 @@ module Rucades
     def cosign_hash: (HashedData hashed_data, ?Signer signer, ?Integer cades_type, ?Integer encoding_type) -> String
 
     # Улучшить подпись CAdES-BES до CAdES-T или CAdES-X Long Type 1.
-    def enhance_cades: (Integer cades_type, String tsa_address, ?Integer encoding_type) -> String
+    def enhance_cades: (?Integer cades_type, ?String tsa_address, ?Integer encoding_type) -> String
 
     # Подписать данные.
     def sign: (?Signer signer, ?bool detached, ?Integer encoding_type) -> String
@@ -687,7 +687,7 @@ module Rucades
     def signers: () -> Signers
 
     # Подписать XML.
-    def sign: (?Signer signer, ?String xpath) -> String
+    def sign: (Signer signer, ?String xpath) -> String
 
     # Проверить XML-подпись.
     def verify: (String signed_xml, ?String xpath) -> void
@@ -839,7 +839,7 @@ module Rucades
     def export_key: (Certificate certificate) -> String
 
     # Сгенерировать ключ.
-    def generate_key: (Integer algorithm_oid) -> void
+    def generate_key: (?Integer algorithm_oid) -> void
 
     # Импортировать ключ.
     def import_key: (String encoded_key, Certificate certificate, ?String password) -> void
