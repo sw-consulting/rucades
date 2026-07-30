@@ -17,20 +17,24 @@ RSpec.describe Rucades do
       let(:certificates) { Rucades::Certificates.new }
 
       context "without a query" do
-        it "raises for a type that requires a query" do
-          expect { certificates.find(Rucades::CAPICOM_CERTIFICATE_FIND_SUBJECT_NAME) }
-            .to raise_error(ArgumentError, "Missing query")
+        it "raises for a type that requires a query when the query is omitted or nil" do
+          [[], [nil]].each do |query|
+            expect { certificates.find(Rucades::CAPICOM_CERTIFICATE_FIND_SUBJECT_NAME, *query) }
+              .to raise_error(ArgumentError, "Missing query")
+          end
         end
 
-        it "returns a collection for the time-based find types" do
+        it "returns a collection for the time-based find types when the query is omitted or nil" do
           [
             Rucades::CAPICOM_CERTIFICATE_FIND_TIME_VALID,
             Rucades::CAPICOM_CERTIFICATE_FIND_TIME_NOT_YET_VALID,
             Rucades::CAPICOM_CERTIFICATE_FIND_TIME_EXPIRED
           ].each do |type|
-            result = certificates.find(type)
-            expect(result).to be_a(Rucades::Certificates)
-            expect(result.count).to eq(0)
+            [[], [nil]].each do |query|
+              result = certificates.find(type, *query)
+              expect(result).to be_a(Rucades::Certificates)
+              expect(result.count).to eq(0)
+            end
           end
         end
       end
