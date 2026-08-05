@@ -1,127 +1,150 @@
 # Rucades
 
-Вас приветсвует Rucades - CAdESCOM Ruby binding!
-
-Gem реализует интерфейс, аналогичный [CAdESCOM](https://docs.cryptopro.ru/cades/reference/cadescom)
-и разработан путём повторения функциональности [pycades](https://docs.cryptopro.ru/cades/pycades)
+Вас приветсвует Rucades - CAdESCOM Ruby binding для Linux и macOS!
 
 [![Gem Version](https://badge.fury.io/rb/rucades.svg)](https://badge.fury.io/rb/rucades)
 [![Build-and-test](https://github.com/maxirmx/rucades/actions/workflows/main.yml/badge.svg)](https://github.com/maxirmx/rucades/actions/workflows/main.yml)
 
-## Совместимость
+Rucades — open-source gem, реализующий интерфейс к КриптоПро CAdES SDK. Он предоставляет объектную модель, близкую к CAdESCOM, и повторяет подход `pycades`.
+Rucades не реализует криптографические алгоритмы, для использования Rucades требуется установка КриптоПро CSP и КриптоПро CAdES SDK.
 
-Gem тестировался в следующем окружении:
-* Ubuntu 20, 22
-* macOS: macos-latest (arm64), macos-15-intel (amd64)
-* Ruby 2.7.8, 3.1.7, 3.2.11, 3.3.11, 3.4.9, 4.0.5
+## Для чего нужен Rucades 
 
-Вероятно, Gem совместим с другими вариантами Linux, однако КриптоПро ЭЦП SDK доступно только для Ubuntu.
-После каждого релиза автоматически выполняется проверка работоспособности Gem на Ubuntu 22 и macOS-latest.
+Rucades поможет в интеграции с КриптоПро CSP, если Ruby-приложению нужно:
 
-## Установка
+- создавать и проверять CAdES-подписи;
+- шифровать и расшифровывать данные;
+- подписывать и проверять XML-документы;
+- создавать и проверять подпись заранее рассчитанного хеша;
+- работать с сертификатами и закрытыми ключами.
 
-### Зависимости
+Типичные области применения: электронный документооборот, интеграционные сервисы, корпоративные порталы, финансовые системы и внутренние приложения, где уже используется КриптоПро.
 
-* Ruby и Bundler для Вашей платформы.
-* Средства сборки C/C++ расширений Ruby для Вашей платформы.
-* [CMake](https://cmake.org/) — необходим для сборки native extension.
-* [Boost](https://www.boost.org/) — требуется при использовании КриптоПро ЭЦП SDK версии ниже 2.0.15700; начиная с версии 2.0.15700 Boost не требуется.
-* [КриптоПро CSP](https://cryptopro.ru/products/csp/downloads) и пакет разработки CSP (`cprocsp-devel` или аналогичный пакет для Вашей платформы).
-* [КриптоПро ЭЦП SDK](https://cryptopro.ru/products/cades/downloads) с пакетом CAdES (`cprocsp-pki-cades` или аналогичный пакет для Вашей платформы), версия не ниже 2.0.14071.
+## Что даёт Rucades
 
-Используйте официальные инструкции КриптоПро для выбранной операционной системы и архитектуры:
+- Ruby API, близкий к CAdESCOM.
+- Нативное расширение на C++ с использованием Rice.
+- Готовый gem для установки через RubyGems.org.
+- Примеры основных операций в каталоге `samples`.
+- Автоматическую сборку и тестирование на Linux и macOS для нескольких версий Ruby.
+- MIT-лицензию и открытый исходный код.
 
-* [документация КриптоПро CSP](https://docs.cryptopro.ru/csp) описывает установку и особенности CSP на поддерживаемых платформах;
-* [страница загрузки КриптоПро CSP](https://cryptopro.ru/products/csp/downloads) содержит дистрибутивы для разных платформ и архитектур;
-* [документация КриптоПро ЭЦП SDK](https://docs.cryptopro.ru/cades/usage) описывает использование и требования SDK;
-* [страница загрузки КриптоПро ЭЦП SDK](https://cryptopro.ru/products/cades/downloads) содержит актуальные пакеты SDK.
+## Быстрый старт
 
-Начиная с КриптоПро CSP 5.0 R3, пакеты CAdES/SDK поставляются в составе основного дистрибутива CSP. Для более ранних версий CSP может потребоваться отдельная установка архива КриптоПро ЭЦП SDK.
+### 1. Установите системные зависимости
 
-### Установка опубликованного Gem из RubyGems.org
+Потребуются:
 
-Добавьте Gem в Gemfile Вашего проекта:
+- Ruby и Bundler;
+- средства сборки C/C++ расширений;
+- CMake;
+- Boost для версий КриптоПро ЭЦП SDK ниже `2.0.15700`;
+- КриптоПро CSP и пакет разработки CSP;
+- КриптоПро CAdES SDK версии не ниже `2.0.14071`.
+
+Используйте официальные инструкции КриптоПро для вашей ОС и архитектуры:
+
+- [КриптоПро CSP: документация](https://docs.cryptopro.ru/csp)
+- [КриптоПро CSP: загрузка](https://cryptopro.ru/products/csp/downloads)
+- [КриптоПро ЭЦП SDK: документация](https://docs.cryptopro.ru/cades/usage)
+- [КриптоПро ЭЦП SDK: загрузка](https://cryptopro.ru/products/cades/downloads)
+
+### 2. Подключите gem
+
+В `Gemfile`:
+
+```ruby
+gem "rucades"
 ```
-gem 'rucades'
-```
 
-Затем выполните установку зависимостей проекта обычным для Bundler способом.
+Затем установите зависимости проекта обычным способом через Bundler.
 
-Для установки без Gemfile можно использовать опубликованный пакет RubyGems.org:
-```
+Либо установите gem напрямую:
+
+```shell
 gem install rucades
 ```
 
-Компиляция расширения может занять 10-15 минут. Во время компиляции Ruby может не выводить сообщений.
+Сборка расширения может занять 10–15 минут. В это время Ruby может не выводить сообщения.
 
-### Проверка установки
+### 3. Проверьте установку
 
-Скрипт _test.rb_
-```
-require 'rucades'
-puts "CADES SDK version: #{Rucades::About.new.version.to_s}"
-```
-Запуск
-```
-ruby test.rb
+```ruby
+require "rucades"
+
+puts "CAdES SDK version: #{Rucades::About.new.version}"
 ```
 
-Ожидаемый результат (или что-то похожее)
-```
-CADES SDK version: 2.0.14892
-```
+Ожидаемый результат:
 
-### Установка из исходного кода репозитория
-
-Этот вариант нужен для установки unreleased-версии из репозитория, либо для утановки в контроллируем окружении.
-Во втором случае добавть ссылку на commit, оторый считается надёжным.
-
-Добавьте в Gemfile Вашего проекта следующую строку:
-```
-gem 'rucades', git: 'https://github.com/maxirmx/rucades'
+```text
+CAdES SDK version: 2.0.14892
 ```
 
-Затем выполните установку зависимостей проекта обычным для Bundler способом.
+Конкретный номер зависит от установленной версии SDK.
 
-## Использование
+## Как это работает
 
-В каталоге samples есть 4 примера, унаследованные от pycades:
-* encrypt - decrypt
-* sign - verify signature
-* sign xml document - verify signature
-* sign hash - verify signature
-
-Для запуска примеров необходим сертификат с привязкой к закрытому ключу.
-Тестовый сертификат можно установить с помощью команды:
-
-_для amd64_
-```
-/opt/cprocsp/bin/amd64/cryptcp -createcert -dn "CN=test" -provtype 80 -cont '\\.\HDIMAGE\test' -ca https://cryptopro.ru/certsrv
+```text
+Ruby-приложение
+      ↓
+Rucades — Ruby/C++ binding
+      ↓
+КриптоПро CAdES SDK
+      ↓
+КриптоПро CSP, сертификаты и ключевые контейнеры
 ```
 
-_для arm64_
+## Совместимость
+
+Проект тестировался в следующих окружениях:
+
+- Ubuntu 20 и 22;
+- macOS на Apple Silicon и Intel;
+- Ruby `2.7.8`, `3.1.7`, `3.2.11`, `3.3.11`, `3.4.9` и `4.0.5`.
+
+Другие варианты Linux могут работать, однако доступность КриптоПро ЭЦП SDK зависит от платформы и официальных дистрибутивов КриптоПро.
+
+## Примеры
+
+В каталоге `samples` находятся четыре группы примеров, унаследованных от `pycades`:
+
+1. шифрование и расшифрование;
+2. создание и проверка подписи;
+3. подписание и проверка XML-документа;
+4. подписание и проверка хеша.
+
+Для запуска криптографических примеров потребуется сертификат, связанный с закрытым ключом. Подробности и команды создания тестового сертификата приведены в текущей документации проекта.
+
+## Проверки качества
+
+GitHub Actions собирает и тестирует binding на Linux и macOS для поддерживаемой матрицы Ruby. После релиза опубликованный gem дополнительно устанавливается из RubyGems.org и проверяется на Ubuntu 22.04 и macOS.
+
+RSpec проверяет наличие и сигнатуры Ruby-binding классов и функций. Эти тесты подтверждают корректность интерфейсного слоя, но не заменяют функциональное и приёмочное тестирование криптографических сценариев в целевой инфраструктуре.
+
+## Установка версии из репозитория
+
+Для unreleased-версии или контролируемой сборки можно привязаться к конкретному commit:
+
+```ruby
+gem "rucades",
+    git: "https://github.com/sw-consulting/rucades.git",
+    ref: "COMMIT_SHA"
 ```
-/opt/cprocsp/bin/aarch64/cryptcp -createcert -dn "CN=test" -provtype 80 -cont '\\.\HDIMAGE\test' -ca https://cryptopro.ru/certsrv
-```
 
-RSpec обеспечивает покрытие тестами всех классов и примерно 70% функций.
-Однако, следует иметь в виду, что тестируются С++ --> Ruby bindings, а не функциональность.
-То есть RSpec проверяет, что функция создалась с нужным именен и параметрами, но не правильность её работы.
+## Участие в проекте
 
-## Разработка
-
-Этот Gem использует
-* [bundler](https://bundler.io/guides/getting_started.html) для управления зависимстями
-* [rake](https://ruby.github.io/rake/) для управления сборкой
-* [RSpec](https://rspec.info/) 'to make TDD productive and fun'
-* [Rice](https://jasonroelofs.com/rice/4.x/introduction.html) для генерации Ruby bindings
-
-Чтобы начать разработку нужно:
-* прочитать документацию на Rice
-* установить зависимости, как описано выше в разделе установка
-* ```bundle install```
-* ```rake --tasks```
+- Сообщайте о проблемах через [GitHub Issues](https://github.com/sw-consulting/rucades/issues).
+- Для улучшения кода, документации, тестов или примеров используйте pull request.
 
 ## Лицензия
 
-[MIT License](https://opensource.org/licenses/MIT).
+[MIT License](https://github.com/sw-consulting/rucades/blob/main/LICENSE.txt).
+
+## Ссылки
+
+- [Исходный код](https://github.com/sw-consulting/rucades)
+- [RubyGems.org](https://rubygems.org/gems/rucades)
+- [Документация CAdESCOM](https://docs.cryptopro.ru/cades/reference/cadescom)
+- [Документация pycades](https://docs.cryptopro.ru/cades/pycades)
+
