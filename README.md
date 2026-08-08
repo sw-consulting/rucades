@@ -139,7 +139,7 @@ gem "rucades",
 
 ## Лицензия
 
-[MIT License](https://github.com/sw-consulting/rucades/blob/main/LICENSE.txt).
+[MIT License](LICENSE.txt).
 
 ## Ссылки
 
