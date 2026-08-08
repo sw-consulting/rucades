@@ -1,6 +1,6 @@
 # Rucades
 
-Вас приветсвует Rucades - CAdESCOM Ruby binding для Linux и macOS!
+Вас приветствует Rucades - CAdESCOM Ruby binding для Linux и macOS!
 
 [![Gem Version](https://badge.fury.io/rb/rucades.svg)](https://badge.fury.io/rb/rucades)
 [![Build-and-test](https://github.com/maxirmx/rucades/actions/workflows/main.yml/badge.svg)](https://github.com/maxirmx/rucades/actions/workflows/main.yml)
